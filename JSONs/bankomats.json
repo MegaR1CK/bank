@@ -1,0 +1,107 @@
+[
+  {
+    "_id": 32,
+    "address": "Fostoria, Minna Street, 90",
+    "type": "Банкомат",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  },
+  {
+    "_id": 99,
+    "address": "Rosburg, Kingsland Avenue, 72",
+    "type": "Банкомат",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  },
+  {
+    "_id": 72,
+    "address": "Soudan, Gatling Place, 41",
+    "type": "Банкомат",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  },
+  {
+    "_id": 56,
+    "address": "Rockhill, Rost Place, 50",
+    "type": "Банкомат",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  },
+  {
+    "_id": 38,
+    "address": "Chamizal, Havens Place, 26",
+    "type": "Банкомат",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  },
+  {
+    "_id": 80,
+    "address": "Levant, Lynch Street, 54",
+    "type": "Банкомат",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  },
+  {
+    "_id": 27,
+    "address": "Caln, Concord Street, 76",
+    "type": "Банкомат",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  },
+  {
+    "_id": 78,
+    "address": "Belva, Arkansas Drive, 38",
+    "type": "Отделение",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  },
+  {
+    "_id": 54,
+    "address": "Osage, Rewe Street, 19",
+    "type": "Банкомат",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  },
+  {
+    "_id": 82,
+    "address": "Jacumba, Grand Avenue, 44",
+    "type": "Отделение",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  },
+  {
+    "_id": 95,
+    "address": "Summerset, Montague Terrace, 10",
+    "type": "Отделение",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  },
+  {
+    "_id": 41,
+    "address": "Sisquoc, Arlington Avenue, 83",
+    "type": "Банкомат",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  },
+  {
+    "_id": 45,
+    "address": "Oasis, Hendrickson Place, 50",
+    "type": "Банкомат",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  },
+  {
+    "_id": 55,
+    "address": "Gardiner, Foster Avenue, 16",
+    "type": "Банкомат",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  },
+  {
+    "_id": 97,
+    "address": "Urie, Court Square, 70",
+    "type": "Отделение",
+    "timeOpen": "09:00",
+    "timeClose": "20:00"
+  }
+]
