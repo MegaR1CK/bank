@@ -1,10 +1,13 @@
 package com.hfad.worldskillsbank
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.bankomat_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class BankomatsAdapter(private val bankomats: List<Bankomat>) : RecyclerView.Adapter<BankomatsAdapter.ViewHolder>() {
 
@@ -18,6 +21,22 @@ class BankomatsAdapter(private val bankomats: List<Bankomat>) : RecyclerView.Ada
         val bankomat = bankomats[position]
         view.text_address.text = bankomat.address
         view.text_type.text = bankomat.type
+        view.text_time.text = String.format(Locale.getDefault(),
+            holder.container.context.getString(R.string.bankomat_time), bankomat.timeOpen, bankomat.timeClose)
+
+        val formatter = SimpleDateFormat("hh:mm", Locale.getDefault())
+        val timeOpen = formatter.parse(bankomat.timeOpen)
+        val timeClose = formatter.parse(bankomat.timeClose)
+        val currentTime = formatter.parse(formatter.format(Date()))
+        if (currentTime != null && currentTime.after(timeOpen) && currentTime.before(timeClose)) {
+            view.text_status.text = "Работает"
+            view.text_status.setTextColor(Color.parseColor("#60f3c2"))
+        }
+        else {
+            view.text_status.text = "Не работает"
+            view.text_status.setTextColor(Color.RED)
+        }
+
     }
 
     override fun getItemCount() = bankomats.size

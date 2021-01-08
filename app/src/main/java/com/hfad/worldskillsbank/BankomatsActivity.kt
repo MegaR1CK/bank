@@ -19,19 +19,13 @@ class BankomatsActivity : AppCompatActivity() {
         recycler_bankomats.layoutManager = LinearLayoutManager(this)
         recycler_bankomats.adapter = BankomatsAdapter(listOf())
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("file:///C:/Users/Konstantin/Desktop/JSONs/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val api = retrofit.create(Api::class.java)
-        api.getBankomats().enqueue(object : Callback<List<Bankomat>> {
+        App.api.getBankomats().enqueue(object : Callback<List<Bankomat>> {
             override fun onResponse(call: Call<List<Bankomat>>, response: Response<List<Bankomat>>) {
                 if (response.isSuccessful)
                     recycler_bankomats.adapter = response.body()?.let { BankomatsAdapter(it) }
             }
 
             override fun onFailure(call: Call<List<Bankomat>>, t: Throwable) {}
-
         })
 
     }
