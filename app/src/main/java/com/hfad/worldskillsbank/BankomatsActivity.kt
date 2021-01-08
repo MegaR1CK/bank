@@ -8,8 +8,6 @@ import kotlinx.android.synthetic.main.activity_bankomats.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class BankomatsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +17,7 @@ class BankomatsActivity : AppCompatActivity() {
         recycler_bankomats.layoutManager = LinearLayoutManager(this)
         recycler_bankomats.adapter = BankomatsAdapter(listOf())
 
-        App.api.getBankomats().enqueue(object : Callback<List<Bankomat>> {
+        App.MAIN_API.getBankomats().enqueue(object : Callback<List<Bankomat>> {
             override fun onResponse(call: Call<List<Bankomat>>, response: Response<List<Bankomat>>) {
                 if (response.isSuccessful)
                     recycler_bankomats.adapter = response.body()?.let { BankomatsAdapter(it) }
@@ -27,6 +25,5 @@ class BankomatsActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<Bankomat>>, t: Throwable) {}
         })
-
     }
 }

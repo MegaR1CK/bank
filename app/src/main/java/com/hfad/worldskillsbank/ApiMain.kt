@@ -5,7 +5,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-interface Api {
+interface ApiMain {
     @GET("bankomats.json")
     fun getBankomats(): Call<List<Bankomat>>
 }

@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.bankomat_item.view.*
+import kotlinx.android.synthetic.main.item_bankomat.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class BankomatsAdapter(private val bankomats: List<Bankomat>) : RecyclerView.Adapter<BankomatsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val cl = LayoutInflater.from(parent.context).inflate(R.layout.bankomat_item, parent, false) as ConstraintLayout
+        val cl = LayoutInflater.from(parent.context).inflate(R.layout.item_bankomat, parent, false) as ConstraintLayout
         return ViewHolder(cl)
     }
 
@@ -36,7 +36,6 @@ class BankomatsAdapter(private val bankomats: List<Bankomat>) : RecyclerView.Ada
             view.text_status.text = "Не работает"
             view.text_status.setTextColor(Color.RED)
         }
-
     }
 
     override fun getItemCount() = bankomats.size

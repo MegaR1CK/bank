@@ -2,4 +2,7 @@
     <string name="app_name">WorldSkills Bank</string>
     <string name="bankomat_time">Часы работы: %1$s-%2$s</string>
     <string name="bankomats_title">Отделения и банкоматы</string>
+    <string name="valutes_title">Курсы валют</string>
+    <string name="val_title">Курс</string>
+    <string name="not_found">Не найдено</string>
 </resources>
