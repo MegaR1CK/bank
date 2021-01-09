@@ -5,4 +5,11 @@
     <string name="valutes_title">Курсы валют</string>
     <string name="val_title">Курс</string>
     <string name="not_found">Не найдено</string>
+    <string name="login_title">Войти</string>
+    <string name="auth_title">Авторизация</string>
+    <string name="login_desc">Введите логин и пароль:</string>
+    <string name="uname">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="login_log">Войти</string>
+    <string name="login_cancel">Отмена</string>
 </resources>

@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         valute_btn.setOnClickListener(this)
         bankomats_btn.setOnClickListener(this)
+        login_btn.setOnClickListener(this)
 
         App.XML_API.getValutes().enqueue(object : Callback<ValCurs> {
             override fun onResponse(call: Call<ValCurs>, response: Response<ValCurs>) {
@@ -51,6 +52,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.bankomats_btn -> {
                 val intent = Intent(this, BankomatsActivity::class.java)
                 startActivity(intent)
+            }
+
+            R.id.login_btn -> {
+                val dialog = LoginDialog()
+                val ft = supportFragmentManager.beginTransaction()
+                dialog.show(ft, "login")
             }
         }
     }
