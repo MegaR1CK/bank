@@ -6,6 +6,9 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiMain {
-    @GET("bankomats.json")
+    @GET("bankomats")
     fun getBankomats(): Call<List<Bankomat>>
+
+    @POST("login")
+    fun login(@Body logModel: ModelLogin): Call<ModelToken>
 }

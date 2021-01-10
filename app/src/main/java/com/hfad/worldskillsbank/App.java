@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class App extends Application {
 
     public static final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://raw.githubusercontent.com/MegaR1CK/bank/master/JSONs/")
+            .baseUrl("http://10.0.2.2:57905/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
