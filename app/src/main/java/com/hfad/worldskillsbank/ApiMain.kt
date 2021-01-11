@@ -1,9 +1,7 @@
 package com.hfad.worldskillsbank
 
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiMain {
     @GET("bankomats")
@@ -11,4 +9,7 @@ interface ApiMain {
 
     @POST("login")
     fun login(@Body logModel: ModelLogin): Call<ModelToken>
+
+    @HTTP(method = "DELETE", path = "logout", hasBody = true)
+    fun logout(@Body token: ModelToken): Call<Void>
 }

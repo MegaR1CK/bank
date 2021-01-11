@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.button_valute.view.*
 import retrofit2.Call
@@ -17,6 +18,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        if (preferences.contains("TOKEN")) {
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.putExtra(HomeActivity.TOKEN_TITLE, preferences.getString("TOKEN", null))
+            startActivity(intent)
+        }
 
         valute_btn.btn_date.text = SimpleDateFormat("dd.MM.yyyy",
             Locale.getDefault()).format(Date())
@@ -44,15 +52,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.valute_btn -> {
-                val intent = Intent(this, ValuteActivity::class.java)
-                startActivity(intent)
-            }
+            R.id.valute_btn ->
+                startActivity(Intent(this, ValuteActivity::class.java))
 
-            R.id.bankomats_btn -> {
-                val intent = Intent(this, BankomatsActivity::class.java)
-                startActivity(intent)
-            }
+            R.id.bankomats_btn ->
+                startActivity(Intent(this, BankomatsActivity::class.java))
 
             R.id.login_btn -> {
                 val dialog = LoginDialog()

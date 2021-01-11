@@ -17,8 +17,8 @@ public class App extends Application {
             .addConverterFactory(SimpleXmlConverterFactory.create())
             .build();
 
-    public static final ApiXml XML_API = retrofit2.create(ApiXml.class);
-
     public static final ApiMain MAIN_API = retrofit.create(ApiMain.class);
+
+    public static final ApiXml XML_API = retrofit2.create(ApiXml.class);
 
 }
