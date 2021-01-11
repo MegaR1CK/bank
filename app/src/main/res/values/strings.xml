@@ -16,6 +16,8 @@
     <string name="bottom_nav_payments">Платежи</string>
     <string name="bottom_nav_history">История</string>
     <string name="bottom_nav_dialogs">Диалоги</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cards_title">МОИ КАРТЫ</string>
+    <string name="checks_title">МОИ СЧЕТА</string>
+    <string name="credits_title">МОИ КРЕДИТЫ</string>
+    <string name="home_sum">%1$.2f рублей</string>
 </resources>
