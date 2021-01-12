@@ -16,7 +16,6 @@ class HomeActivity : AppCompatActivity() {
 
     companion object { val TOKEN_TITLE = "TOKEN"}
 
-    // TODO: Вынести токен в app, сохранить аккаунт при закрытии
     lateinit var token: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,21 +48,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.logout_menu -> {
-                App.MAIN_API.logout(ModelToken(token)).enqueue(object : Callback<Void> {
-                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                        val preferences = PreferenceManager
-                            .getDefaultSharedPreferences(this@HomeActivity)
-                        val editor = preferences.edit()
-                        editor.clear()
-                        editor.apply()
-                        this@HomeActivity.finish()
-                    }
-                    override fun onFailure(call: Call<Void>, t: Throwable) {}
-                })
-            }
-        }
+        val ft = supportFragmentManager.beginTransaction()
+        val prevFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        prevFragment?.let { ProfileFragment(it) }?.let { ft.replace(R.id.fragment_container, it) }
+        ft.commit()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         return super.onOptionsItemSelected(item)
     }
 }

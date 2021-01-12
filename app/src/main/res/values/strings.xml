@@ -20,4 +20,27 @@
     <string name="checks_title">МОИ СЧЕТА</string>
     <string name="credits_title">МОИ КРЕДИТЫ</string>
     <string name="home_sum">%1$.2f рублей</string>
+    <string-array name="options_list">
+        <item>Изменение пароля</item>
+        <item>Изменение логина</item>
+        <item>История посещений</item>
+        <item>Информация о приложении</item>
+        <item>Выход</item>
+    </string-array>
+    <string name="username_edit_title">Изменение логина</string>
+    <string name="username_edit_desc">Введите новый логин:</string>
+    <string name="password_edit_title">Изменение пароля</string>
+    <string name="password_edit_desc">Введите новый пароль:</string>
+    <string name="edit_button">Изменить</string>
+    <string name="username_changed">Имя пользователя изменено</string>
+    <string name="password_changed">Пароль изменен</string>
+    <string name="short_password">Пароль слишком короткий!</string>
+    <string name="information_title">Мобильное приложение WorldSkills Online</string>
+    <string name="information_version">Версия 1.0.0</string>
+    <string name="information_link">
+        <a href="https://www.avangard.ru/rus/docs/rules_cart_use_in_system_mobile_pays.pdf">Пользовательское соглашение</a>
+    </string>
+    <string name="information_dev">Разработано: Гончаров Константин Дмитриевич</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

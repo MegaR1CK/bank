@@ -19,12 +19,17 @@ class HomeFragment : Fragment() {
 
         view.recycler_cards.layoutManager = LinearLayoutManager(activity)
         view.recycler_checks.layoutManager = LinearLayoutManager(activity)
-        //view.recycler_credits.layoutManager = LinearLayoutManager(activity)
-        view.recycler_credits.layoutManager = object : LinearLayoutManager(activity) {
-            override fun canScrollVertically() = false
-        }
+        view.recycler_credits.layoutManager = LinearLayoutManager(activity)
 
         val token = (activity as HomeActivity).token
+
+        App.MAIN_API.getUser(ModelToken(token)).enqueue(object : Callback<ModelUser> {
+            override fun onResponse(call: Call<ModelUser>, response: Response<ModelUser>) {
+                response.body()?.let { (activity as HomeActivity).title = it.name + " " + it.midname }
+            }
+            override fun onFailure(call: Call<ModelUser>, t: Throwable) {}
+        })
+
         App.MAIN_API.getCards(ModelToken(token)).enqueue(object : Callback<List<ModelCard>> {
             override fun onResponse(call: Call<List<ModelCard>>, response: Response<List<ModelCard>>) {
                 response.body()?.let { view.recycler_cards.adapter = HomeAdapter(it) }

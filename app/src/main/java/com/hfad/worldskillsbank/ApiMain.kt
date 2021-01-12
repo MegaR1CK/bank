@@ -13,6 +13,9 @@ interface ApiMain {
     @HTTP(method = "DELETE", path = "logout", hasBody = true)
     fun logout(@Body token: ModelToken): Call<Void>
 
+    @POST("getuser")
+    fun getUser(@Body token: ModelToken): Call<ModelUser>
+
     @POST("getcards")
     fun getCards(@Body token: ModelToken): Call<List<ModelCard>>
 
@@ -21,4 +24,13 @@ interface ApiMain {
 
     @POST("getcredits")
     fun getCredits(@Body token: ModelToken): Call<List<ModelCredit>>
+
+    @PUT("editusername")
+    fun editUsername(@Body editUsernameModel: ModelEditUsername): Call<Void>
+
+    @PUT("editpassword")
+    fun editPassword(@Body editPasswordModel: ModelEditPassword): Call<Void>
+
+    @POST("lastlogin")
+    fun getLastLogin(@Body token: ModelToken): Call<List<ModelLastLogin>>
 }

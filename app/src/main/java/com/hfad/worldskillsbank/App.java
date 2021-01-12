@@ -7,6 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class App extends Application {
 
+    public static boolean WAS_AUTHORIZED = false;
+
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://10.0.2.2:57905/api/")
             .addConverterFactory(GsonConverterFactory.create())

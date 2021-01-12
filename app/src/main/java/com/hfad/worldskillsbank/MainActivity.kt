@@ -21,10 +21,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         if (preferences.contains("TOKEN")) {
+            App.WAS_AUTHORIZED = true
             val intent = Intent(this, HomeActivity::class.java)
             intent.putExtra(HomeActivity.TOKEN_TITLE, preferences.getString("TOKEN", null))
             startActivity(intent)
         }
+        else App.WAS_AUTHORIZED = false
 
         valute_btn.btn_date.text = SimpleDateFormat("dd.MM.yyyy",
             Locale.getDefault()).format(Date())
