@@ -55,4 +55,10 @@
     <string name="wrong_password">Неверный пароль!</string>
     <string name="history_card_title">Перевод на карту</string>
     <string name="loading_title">Загрузка…</string>
+    <string name="card_rename_title">Переименование карты</string>
+    <string name="rename_desc">Введите новое имя</string>
+    <string name="card_rename_hint">Имя карты</string>
+    <string name="rename_pos_btn">Изменить</string>
+    <string name="card_rename_success">Карта переименована</string>
+    <string name="card_rename_short_name">Имя не может быть пустым!</string>
 </resources>

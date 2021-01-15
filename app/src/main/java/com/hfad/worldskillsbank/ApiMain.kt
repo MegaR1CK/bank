@@ -39,4 +39,7 @@ interface ApiMain {
 
     @POST("transactions")
     fun getCardTransactions(@Body cardPostModel: ModelCardPost): Call<List<ModelTransaction>>
+
+    @PUT("renamecard")
+    fun renameCard(@Body renameCard: ModelRenameCard): Call<Void>
 }

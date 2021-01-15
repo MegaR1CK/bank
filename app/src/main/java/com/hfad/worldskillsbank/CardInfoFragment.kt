@@ -52,6 +52,10 @@ class CardInfoFragment(val card: ModelCard) : Fragment() {
                     val dialog = CardBlockDialog(card)
                     dialog.show(parentFragmentManager.beginTransaction(), "BLOCK")
                 }
+                2 -> {
+                    val dialog = RenameDialog(card)
+                    dialog.show(parentFragmentManager.beginTransaction(), "RENAME")
+                }
             }
         }
 
