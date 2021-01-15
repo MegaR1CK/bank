@@ -54,11 +54,19 @@
     <string name="card_block_pos_btn">Заблокировать</string>
     <string name="wrong_password">Неверный пароль!</string>
     <string name="history_card_title">Перевод на карту</string>
+    <string name="history_check_title">Перевод на счет</string>
     <string name="loading_title">Загрузка…</string>
     <string name="card_rename_title">Переименование карты</string>
+    <string name="check_rename_title">Переименование счета</string>
     <string name="rename_desc">Введите новое имя</string>
     <string name="card_rename_hint">Имя карты</string>
+    <string name="check_rename_hint">Имя счета</string>
     <string name="rename_pos_btn">Изменить</string>
     <string name="card_rename_success">Карта переименована</string>
+    <string name="check_rename_success">Счет переименован</string>
     <string name="card_rename_short_name">Имя не может быть пустым!</string>
+    <string-array name="check_info_options">
+        <item>История операций</item>
+        <item>Переименовать</item>
+    </string-array>
 </resources>

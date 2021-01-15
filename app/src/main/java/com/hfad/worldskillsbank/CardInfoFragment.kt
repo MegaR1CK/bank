@@ -7,12 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_card_info.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.lang.StringBuilder
 
-class CardInfoFragment(val card: ModelCard) : Fragment() {
+class CardInfoFragment(private val card: ModelCard) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

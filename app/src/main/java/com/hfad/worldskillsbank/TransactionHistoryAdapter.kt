@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_transaction_history.view.*
 import java.util.*
 
-class TransactionHistoryAdapter(val elements: List<ModelTransaction>) :
+class TransactionHistoryAdapter(private val elements: List<ModelTransaction>) :
     RecyclerView.Adapter<TransactionHistoryAdapter.ViewHolder>() {
 
     inner class ViewHolder(val container: LinearLayout) : RecyclerView.ViewHolder(container)
@@ -21,7 +21,10 @@ class TransactionHistoryAdapter(val elements: List<ModelTransaction>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val view = holder.container
         val element = elements[position]
-        view.history_elem_title.text = view.context.getString(R.string.history_card_title)
+        view.history_elem_title.text =
+            if (element.number.length == 16)
+                view.context.getString(R.string.history_card_title)
+            else view.context.getString(R.string.history_check_title)
         view.history_elem_date.text = element.date
         view.history_elem_sum.text = String.format(Locale.getDefault(),
             view.context.getString(R.string.home_sum), element.sum)

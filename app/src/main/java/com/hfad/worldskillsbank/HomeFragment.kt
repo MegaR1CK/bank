@@ -62,7 +62,19 @@ class HomeFragment : Fragment() {
         App.MAIN_API.getChecks(ModelToken(token)).enqueue(object : Callback<List<ModelCheck>> {
             override fun onResponse(call: Call<List<ModelCheck>>,
                                     response: Response<List<ModelCheck>>) {
-                response.body()?.let { view.recycler_checks.adapter = HomeAdapter(it) }
+                response.body()?.let {
+                    val adapter = HomeAdapter(it)
+                    adapter.fragmentReplaceListener = object : HomeAdapter.FragmentReplaceListener {
+                        override fun replaceFragment(fragment: Fragment) {
+                            (activity as HomeActivity)
+                                .supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_container, fragment)
+                                .commit()
+                        }
+                    }
+                    view.recycler_checks.adapter = adapter
+                }
             }
             override fun onFailure(call: Call<List<ModelCheck>>, t: Throwable) {}
         })

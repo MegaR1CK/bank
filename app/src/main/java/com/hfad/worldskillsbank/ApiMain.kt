@@ -37,9 +37,15 @@ interface ApiMain {
     @POST("block")
     fun blockCard(@Body cardPostModel: ModelCardPost): Call<Void>
 
-    @POST("transactions")
+    @POST("history/card")
     fun getCardTransactions(@Body cardPostModel: ModelCardPost): Call<List<ModelTransaction>>
 
-    @PUT("renamecard")
+    @PUT("rename/card")
     fun renameCard(@Body renameCard: ModelRenameCard): Call<Void>
+
+    @POST("history/check")
+    fun getCheckTransactions(@Body checkPostModel: ModelCheckPost): Call<List<ModelTransaction>>
+
+    @PUT("rename/check")
+    fun renameCheck(@Body renameCheck: ModelRenameCheck): Call<Void>
 }

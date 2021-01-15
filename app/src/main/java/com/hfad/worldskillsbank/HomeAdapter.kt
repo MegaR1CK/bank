@@ -38,6 +38,9 @@ class HomeAdapter<T>(private val elements: List<T>) : RecyclerView.Adapter<HomeA
                 0, 6)
                 view.text_sum.text = String.format(Locale.getDefault(),
                     view.context.getString(R.string.home_sum), element.balance)
+                view.setOnClickListener {
+                    fragmentReplaceListener.replaceFragment(CheckInfoFragment(element))
+                }
             }
             is ModelCredit -> {
                 view.text_name.text = element.creditName
