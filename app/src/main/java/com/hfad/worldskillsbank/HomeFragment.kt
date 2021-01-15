@@ -1,10 +1,14 @@
 package com.hfad.worldskillsbank
 
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.core.view.iterator
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import retrofit2.Call
@@ -24,8 +28,12 @@ class HomeFragment : Fragment() {
 
         val token = (activity as HomeActivity).token
 
+        activity?.title = getString(R.string.loading_title)
+        for (v in view.recycler_layout) v.visibility = View.GONE
+
         App.MAIN_API.getUser(ModelToken(token)).enqueue(object : Callback<ModelUser> {
             override fun onResponse(call: Call<ModelUser>, response: Response<ModelUser>) {
+                for (v in view.recycler_layout) v.visibility = View.VISIBLE
                 response.body()?.let { (activity as HomeActivity).title = it.name + " " + it.midname }
             }
             override fun onFailure(call: Call<ModelUser>, t: Throwable) {}

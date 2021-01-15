@@ -53,4 +53,6 @@
     <string name="card_block_dialog_desc">Подтвердите блокировку карты:</string>
     <string name="card_block_pos_btn">Заблокировать</string>
     <string name="wrong_password">Неверный пароль!</string>
+    <string name="history_card_title">Перевод на карту</string>
+    <string name="loading_title">Загрузка…</string>
 </resources>

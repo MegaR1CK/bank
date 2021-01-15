@@ -35,5 +35,8 @@ interface ApiMain {
     fun getLastLogin(@Body token: ModelToken): Call<List<ModelLastLogin>>
 
     @POST("block")
-    fun blockCard(@Body cardBlockModel: ModelCardBlock): Call<Void>
+    fun blockCard(@Body cardPostModel: ModelCardPost): Call<Void>
+
+    @POST("transactions")
+    fun getCardTransactions(@Body cardPostModel: ModelCardPost): Call<List<ModelTransaction>>
 }

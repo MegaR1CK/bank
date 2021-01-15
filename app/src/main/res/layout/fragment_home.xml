@@ -11,8 +11,9 @@
     tools:context=".HomeFragment">
 
     <LinearLayout
+        android:id="@+id/recycler_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
@@ -39,8 +40,8 @@
             android:id="@+id/recycler_cards"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="never"
-            android:nestedScrollingEnabled="false"/>
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never" />
 
         <TextView
             android:id="@+id/textview"
@@ -66,8 +67,8 @@
             android:id="@+id/recycler_checks"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="never"
-            android:nestedScrollingEnabled="false"/>
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never" />
 
         <TextView
             android:id="@+id/textview2"
@@ -93,7 +94,7 @@
             android:id="@+id/recycler_credits"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="never"
-            android:nestedScrollingEnabled="false"/>
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

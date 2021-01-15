@@ -42,6 +42,12 @@ class CardInfoFragment(val card: ModelCard) : Fragment() {
 
         view.card_info_list.setOnItemClickListener { parent, _, position, id ->
             when (position) {
+                0 -> {
+                    parentFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, CardHistoryFragment(card))
+                        .commit()
+                }
                 1 -> {
                     val dialog = CardBlockDialog(card)
                     dialog.show(parentFragmentManager.beginTransaction(), "BLOCK")
