@@ -41,6 +41,16 @@
         <a href="https://www.avangard.ru/rus/docs/rules_cart_use_in_system_mobile_pays.pdf">Пользовательское соглашение</a>
     </string>
     <string name="information_dev">Разработано: Гончаров Константин Дмитриевич</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="card_info_deposit">Пополнить</string>
+    <string name="card_info_transfer">Перевести</string>
+    <string-array name="card_info_options">
+        <item>История операций</item>
+        <item>Заблокировать</item>
+        <item>Переименовать</item>
+    </string-array>
+    <string name="card_block_title">Карта заблокирована!</string>
+    <string name="card_block_dialog_title">Блокировка карты</string>
+    <string name="card_block_dialog_desc">Подтвердите блокировку карты:</string>
+    <string name="card_block_pos_btn">Заблокировать</string>
+    <string name="wrong_password">Неверный пароль!</string>
 </resources>

@@ -39,9 +39,11 @@ class LoginDialog : DialogFragment() {
                         val preferences = PreferenceManager.getDefaultSharedPreferences(activity)
                         val editor = preferences.edit()
                         editor.putString("TOKEN", resp)
+                        editor.putString("PASSWORD", password)
                         editor.apply()
                         val intent = Intent(activity, HomeActivity::class.java)
                         intent.putExtra(HomeActivity.TOKEN_TITLE, resp)
+                        intent.putExtra(HomeActivity.PASSWORD_TITLE, password)
                         dialog.dismiss()
                         startActivity(intent)
                     }

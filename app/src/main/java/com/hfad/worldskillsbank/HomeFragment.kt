@@ -13,7 +13,8 @@ import retrofit2.Response
 
 class HomeFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
@@ -31,21 +32,36 @@ class HomeFragment : Fragment() {
         })
 
         App.MAIN_API.getCards(ModelToken(token)).enqueue(object : Callback<List<ModelCard>> {
-            override fun onResponse(call: Call<List<ModelCard>>, response: Response<List<ModelCard>>) {
-                response.body()?.let { view.recycler_cards.adapter = HomeAdapter(it) }
+            override fun onResponse(call: Call<List<ModelCard>>,
+                                    response: Response<List<ModelCard>>) {
+                response.body()?.let {
+                    val adapter = HomeAdapter(it)
+                    adapter.fragmentReplaceListener = object : HomeAdapter.FragmentReplaceListener {
+                        override fun replaceFragment(fragment: Fragment) {
+                            (activity as HomeActivity)
+                                    .supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_container, fragment)
+                                .commit()
+                        }
+                    }
+                    view.recycler_cards.adapter = adapter
+                }
             }
             override fun onFailure(call: Call<List<ModelCard>>, t: Throwable) {}
         })
 
         App.MAIN_API.getChecks(ModelToken(token)).enqueue(object : Callback<List<ModelCheck>> {
-            override fun onResponse(call: Call<List<ModelCheck>>, response: Response<List<ModelCheck>>) {
+            override fun onResponse(call: Call<List<ModelCheck>>,
+                                    response: Response<List<ModelCheck>>) {
                 response.body()?.let { view.recycler_checks.adapter = HomeAdapter(it) }
             }
             override fun onFailure(call: Call<List<ModelCheck>>, t: Throwable) {}
         })
 
         App.MAIN_API.getCredits(ModelToken(token)).enqueue(object : Callback<List<ModelCredit>> {
-            override fun onResponse(call: Call<List<ModelCredit>>, response: Response<List<ModelCredit>>) {
+            override fun onResponse(call: Call<List<ModelCredit>>,
+                                    response: Response<List<ModelCredit>>) {
                 response.body()?.let { view.recycler_credits.adapter = HomeAdapter(it) }
             }
             override fun onFailure(call: Call<List<ModelCredit>>, t: Throwable) {}

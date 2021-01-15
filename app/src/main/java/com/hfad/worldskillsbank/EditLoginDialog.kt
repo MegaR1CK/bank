@@ -4,11 +4,10 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.dialog_edit_login.*
+import kotlinx.android.synthetic.main.dialog_one_field.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,14 +21,14 @@ class EditLoginDialog(val editType: EditType) : DialogFragment() {
         val builder = AlertDialog.Builder(activity)
         return if (editType == EditType.EditUsername) {
             builder.setTitle(R.string.username_edit_title)
-                    .setView(R.layout.dialog_edit_login)
+                    .setView(R.layout.dialog_one_field)
                     .setPositiveButton(R.string.edit_button, null)
                     .setNegativeButton(R.string.login_cancel, null)
                     .create()
         }
         else {
             builder.setTitle(R.string.password_edit_title)
-                    .setView(R.layout.dialog_edit_login)
+                    .setView(R.layout.dialog_one_field)
                     .setPositiveButton(R.string.edit_button, null)
                     .setNegativeButton(R.string.login_cancel, null)
                     .create()

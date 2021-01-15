@@ -23,7 +23,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (preferences.contains("TOKEN")) {
             App.WAS_AUTHORIZED = true
             val intent = Intent(this, HomeActivity::class.java)
-            intent.putExtra(HomeActivity.TOKEN_TITLE, preferences.getString("TOKEN", null))
+            intent.putExtra(HomeActivity.TOKEN_TITLE,
+                    preferences.getString("TOKEN", null))
+            intent.putExtra(HomeActivity.PASSWORD_TITLE,
+                    preferences.getString("PASSWORD", null))
             startActivity(intent)
         }
         else App.WAS_AUTHORIZED = false

@@ -14,14 +14,19 @@ import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
 
-    companion object { val TOKEN_TITLE = "TOKEN"}
+    companion object {
+        val TOKEN_TITLE = "TOKEN"
+        val PASSWORD_TITLE = "PASSWORD"
+    }
 
     lateinit var token: String
+    lateinit var password: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         token = intent.extras?.getString(TOKEN_TITLE).toString()
+        password = intent.extras?.getString(PASSWORD_TITLE).toString()
         setSupportActionBar(toolbar as Toolbar)
 
         val ft = supportFragmentManager.beginTransaction()
