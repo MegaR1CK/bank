@@ -51,4 +51,7 @@ interface ApiMain {
 
     @POST("dotransaction")
     fun doTransaction(@Body transactionPost: ModelTransactionPost): Call<Void>
+
+    @POST("history/all")
+    fun getTransactions(@Body token: ModelToken): Call<List<ModelTransaction>>
 }

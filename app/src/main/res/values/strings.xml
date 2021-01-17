@@ -59,6 +59,7 @@
     <string name="history_card_title_from">Перевод с карты</string>
     <string name="history_check_title_to">Перевод на счет</string>
     <string name="history_check_title_from">Перевод со счета</string>
+    <string name="general_history_title">Перевод с %1$s на %2$s</string>
     <string name="loading_title">Загрузка…</string>
     <string name="card_rename_title">Переименование карты</string>
     <string name="check_rename_title">Переименование счета</string>
