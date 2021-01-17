@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/purple_200"
+    tools:context=".DepositCardListFragment">
+
+    <RadioGroup
+        android:id="@+id/payment_type_radio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="80dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/payment_type_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/dep_list_radio_selector"
+            android:button="@android:color/transparent"
+            android:checked="true"
+            android:gravity="center"
+            android:text="@string/dep_switch_card"
+            android:textColor="@drawable/dep_list_text_selector"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/payment_type_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/dep_list_radio_selector"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="@string/dep_switch_check"
+            android:textColor="@drawable/dep_list_text_selector"
+            android:textSize="16sp" />
+    </RadioGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_card_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:overScrollMode="never"/>
+</LinearLayout>

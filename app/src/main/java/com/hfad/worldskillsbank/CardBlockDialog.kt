@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.dialog_one_field.*
 import kotlinx.android.synthetic.main.fragment_card_info.*
+import kotlinx.android.synthetic.main.item_card.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

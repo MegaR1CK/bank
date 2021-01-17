@@ -28,8 +28,11 @@ class HomeAdapter<T>(private val elements: List<T>) : RecyclerView.Adapter<HomeA
                         4, 4)
                 view.text_sum.text = String.format(Locale.getDefault(),
                     view.context.getString(R.string.home_sum), element.balance)
-                view.setOnClickListener {
-                    fragmentReplaceListener.replaceFragment(CardInfoFragment(element))
+                if (element.cardType != view.context.getString(R.string.card_source_title) &&
+                        element.cardType != view.context.getString(R.string.card_dest_title)) {
+                    view.setOnClickListener {
+                        fragmentReplaceListener.replaceFragment(CardInfoFragment(element))
+                    }
                 }
             }
             is ModelCheck -> {

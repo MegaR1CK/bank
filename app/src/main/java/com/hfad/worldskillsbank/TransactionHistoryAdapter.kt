@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_transaction_history.view.*
 import java.util.*
 
-class TransactionHistoryAdapter(private val elements: List<ModelTransaction>) :
-    RecyclerView.Adapter<TransactionHistoryAdapter.ViewHolder>() {
+class TransactionHistoryAdapter<T>(private val elements: List<ModelTransaction>, val item: T) :
+    RecyclerView.Adapter<TransactionHistoryAdapter<T>.ViewHolder>() {
 
     inner class ViewHolder(val container: LinearLayout) : RecyclerView.ViewHolder(container)
 
@@ -20,14 +20,26 @@ class TransactionHistoryAdapter(private val elements: List<ModelTransaction>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val view = holder.container
+        val context = view.context
         val element = elements[position]
+
         view.history_elem_title.text =
-            if (element.number.length == 16)
-                view.context.getString(R.string.history_card_title)
-            else view.context.getString(R.string.history_check_title)
+            if (item is ModelCard && element.destNumber == item.cardNumber)
+                 context.getString(R.string.history_card_title_to)
+            else if (item is ModelCard && element.sourceNumber == item.cardNumber)
+                 context.getString(R.string.history_card_title_from)
+            else if (item is ModelCheck && element.destNumber == item.checkNumber)
+                 context.getString(R.string.history_check_title_to)
+            else context.getString(R.string.history_check_title_from)
+
         view.history_elem_date.text = element.date
-        view.history_elem_sum.text = String.format(Locale.getDefault(),
-            view.context.getString(R.string.home_sum), element.sum)
+
+        if (view.history_elem_title.text == context.getString(R.string.history_check_title_to) ||
+                view.history_elem_title.text == context.getString(R.string.history_card_title_to))
+            view.history_elem_sum.text = String.format(Locale.getDefault(),
+                    view.context.getString(R.string.home_sum_to), element.sum)
+        else view.history_elem_sum.text = String.format(Locale.getDefault(),
+                view.context.getString(R.string.home_sum_from), element.sum)
     }
 
     override fun getItemCount() = elements.size

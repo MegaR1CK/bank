@@ -20,6 +20,8 @@
     <string name="checks_title">МОИ СЧЕТА</string>
     <string name="credits_title">МОИ КРЕДИТЫ</string>
     <string name="home_sum">%1$.2f рублей</string>
+    <string name="home_sum_to">+%1$.2f рублей</string>
+    <string name="home_sum_from">-%1$.2f рублей</string>
     <string-array name="options_list">
         <item>Изменение пароля</item>
         <item>Изменение логина</item>
@@ -53,8 +55,10 @@
     <string name="card_block_dialog_desc">Подтвердите блокировку карты:</string>
     <string name="card_block_pos_btn">Заблокировать</string>
     <string name="wrong_password">Неверный пароль!</string>
-    <string name="history_card_title">Перевод на карту</string>
-    <string name="history_check_title">Перевод на счет</string>
+    <string name="history_card_title_to">Перевод на карту</string>
+    <string name="history_card_title_from">Перевод с карты</string>
+    <string name="history_check_title_to">Перевод на счет</string>
+    <string name="history_check_title_from">Перевод со счета</string>
     <string name="loading_title">Загрузка…</string>
     <string name="card_rename_title">Переименование карты</string>
     <string name="check_rename_title">Переименование счета</string>
@@ -69,4 +73,16 @@
         <item>История операций</item>
         <item>Переименовать</item>
     </string-array>
+    <string name="dep_switch_card">С карты</string>
+    <string name="dep_switch_check">Со счета</string>
+    <string name="dep_sum_hint">Введите сумму</string>
+    <string name="dep_btn_title">Пополнить</string>
+    <string name="card_source_title">Карта отправителя</string>
+    <string name="card_dest_title">Карта получателя</string>
+    <string name="transaction_accept_title">Подтверждение перевода</string>
+    <string name="transaction_accept_desc">Подтвердите перевод вводом пароля:</string>
+    <string name="transaction_accept_btn">Перевести</string>
+    <string name="transaction_wrong_sum">Неверно введена сумма!</string>
+    <string name="transaction_success">Перевод завершен!</string>
+    <string name="ok">OK</string>
 </resources>

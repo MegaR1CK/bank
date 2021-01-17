@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_cards_for_dep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"/>
+
+    <EditText
+        android:id="@+id/field_dep_sum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:hint="@string/dep_sum_hint"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/deposit_accept_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dep_btn_title"
+        android:layout_gravity="bottom"
+        android:background="@drawable/dep_list_btn_checked"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

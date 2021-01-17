@@ -48,4 +48,7 @@ interface ApiMain {
 
     @PUT("rename/check")
     fun renameCheck(@Body renameCheck: ModelRenameCheck): Call<Void>
+
+    @POST("dotransaction")
+    fun doTransaction(@Body transactionPost: ModelTransactionPost): Call<Void>
 }

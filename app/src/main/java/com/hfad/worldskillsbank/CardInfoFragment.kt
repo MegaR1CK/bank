@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.fragment_card_info.*
 import kotlinx.android.synthetic.main.fragment_card_info.view.*
+import kotlinx.android.synthetic.main.item_card.view.*
 
-class CardInfoFragment(private val card: ModelCard) : Fragment() {
+class CardInfoFragment(private val card: ModelCard) : Fragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -36,6 +38,8 @@ class CardInfoFragment(private val card: ModelCard) : Fragment() {
             view.transfer_btn.isEnabled = false
         }
 
+        view.deposit_btn.setOnClickListener(this)
+
         view.card_info_list.setOnItemClickListener { parent, _, position, id ->
             when (position) {
                 0 -> {
@@ -54,7 +58,17 @@ class CardInfoFragment(private val card: ModelCard) : Fragment() {
                 }
             }
         }
-
         return view
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id) {
+            R.id.deposit_btn -> {
+                parentFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, DepositCardListFragment(card))
+                    .commit()
+            }
+        }
     }
 }

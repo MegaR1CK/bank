@@ -42,6 +42,7 @@ class HomeActivity : AppCompatActivity() {
                 R.id.bottom_nav_dialogs -> navFt.replace(R.id.fragment_container, DialogsFragment())
             }
             navFt.addToBackStack(null)
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
             navFt.commit()
             true
         }

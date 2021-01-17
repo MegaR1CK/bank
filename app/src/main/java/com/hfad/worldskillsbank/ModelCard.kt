@@ -1,7 +1,7 @@
 package com.hfad.worldskillsbank
 
-class ModelCard (val cardNumber: String,
-                 val cardType: String,
-                 val balance: Double,
-                 val owner: String,
-                 val isBlocked: Boolean)
+data class ModelCard (val cardNumber: String,
+                      var cardType: String,
+                      val balance: Double,
+                      val owner: String,
+                      val isBlocked: Boolean)

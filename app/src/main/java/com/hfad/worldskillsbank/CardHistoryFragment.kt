@@ -34,7 +34,8 @@ class CardHistoryFragment(private val card: ModelCard) : Fragment() {
                 call: Call<List<ModelTransaction>>,
                 response: Response<List<ModelTransaction>>) {
                 view.recycler_transaction_history.adapter = response.body()?.let { it1 ->
-                    TransactionHistoryAdapter(it1.toMutableList().sortedBy { it.date }.reversed())
+                    TransactionHistoryAdapter(it1.toMutableList()
+                            .sortedBy { it.date }.reversed(), card)
                 }
             }
             override fun onFailure(call: Call<List<ModelTransaction>>, t: Throwable) {}
