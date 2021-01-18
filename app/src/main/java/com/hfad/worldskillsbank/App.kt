@@ -1,26 +1,28 @@
-package com.hfad.worldskillsbank;
+package com.hfad.worldskillsbank
 
-import android.app.Application;
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import android.app.Application
+import com.hfad.worldskillsbank.api.ApiMain
+import com.hfad.worldskillsbank.api.ApiXml
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 
-public class App extends Application {
+class App : Application() {
+    companion object {
+        var WAS_AUTHORIZED = false
 
-    public static boolean WAS_AUTHORIZED = false;
+        private val retrofit: Retrofit = Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:57905/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
 
-    public static final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:57905/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
+        private val retrofit2: Retrofit = Retrofit.Builder()
+                .baseUrl("http://www.cbr.ru/scripts/")
+                .addConverterFactory(SimpleXmlConverterFactory.create())
+                .build()
 
-    public static final Retrofit retrofit2 = new Retrofit.Builder()
-            .baseUrl("http://www.cbr.ru/scripts/")
-            .addConverterFactory(SimpleXmlConverterFactory.create())
-            .build();
+        val MAIN_API: ApiMain = retrofit.create(ApiMain::class.java)
 
-    public static final ApiMain MAIN_API = retrofit.create(ApiMain.class);
-
-    public static final ApiXml XML_API = retrofit2.create(ApiXml.class);
-
+        val XML_API: ApiXml = retrofit2.create(ApiXml::class.java)
+    }
 }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/purple_200"
-    tools:context=".DepositCardListFragment">
+    tools:context=".fragments.DepositCardListFragment">
 
     <RadioGroup
         android:id="@+id/payment_type_radio"
