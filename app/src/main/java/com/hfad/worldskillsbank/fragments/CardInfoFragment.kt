@@ -1,17 +1,15 @@
 package com.hfad.worldskillsbank.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.hfad.worldskillsbank.dialogs.CardBlockDialog
-import com.hfad.worldskillsbank.other.NumberFormatter
+import androidx.fragment.app.Fragment
 import com.hfad.worldskillsbank.R
+import com.hfad.worldskillsbank.dialogs.CardBlockDialog
 import com.hfad.worldskillsbank.dialogs.RenameDialog
-import com.hfad.worldskillsbank.activities.HomeActivity
 import com.hfad.worldskillsbank.models.ModelCard
-import kotlinx.android.synthetic.main.activity_home.*
+import com.hfad.worldskillsbank.other.NumberFormatter
 import kotlinx.android.synthetic.main.fragment_card_info.view.*
 import kotlinx.android.synthetic.main.item_card.view.*
 
@@ -21,14 +19,6 @@ class CardInfoFragment(private val card: ModelCard) : Fragment(), View.OnClickLi
                               savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_card_info, container, false)
-
-        (activity as HomeActivity).toolbar.setNavigationOnClickListener {
-            parentFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, HomeFragment())
-                    .commit()
-            (activity as HomeActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        }
 
         view.card_info_name.text = card.cardType
         view.card_info_number.text = NumberFormatter.formatNumber(card.cardNumber,
@@ -49,9 +39,10 @@ class CardInfoFragment(private val card: ModelCard) : Fragment(), View.OnClickLi
             when (position) {
                 0 -> {
                     parentFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, CardHistoryFragment(card))
-                        .commit()
+                            .beginTransaction()
+                            .replace(R.id.fragment_container, CardHistoryFragment(card))
+                            .addToBackStack("CARD")
+                            .commit()
                 }
                 1 -> {
                     val dialog = CardBlockDialog(card)
@@ -70,9 +61,10 @@ class CardInfoFragment(private val card: ModelCard) : Fragment(), View.OnClickLi
         when(v?.id) {
             R.id.deposit_btn -> {
                 parentFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, DepositCardListFragment(card))
-                    .commit()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, DepositCardListFragment(card))
+                        .addToBackStack("CARD")
+                        .commit()
             }
         }
     }

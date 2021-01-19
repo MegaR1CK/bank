@@ -1,12 +1,16 @@
 package com.hfad.worldskillsbank.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.hfad.worldskillsbank.*
+import com.hfad.worldskillsbank.App
+import com.hfad.worldskillsbank.R
 import com.hfad.worldskillsbank.fragments.*
+import com.hfad.worldskillsbank.models.ModelToken
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -38,11 +42,12 @@ class HomeActivity : AppCompatActivity() {
                 R.id.bottom_nav_history -> navFt.replace(R.id.fragment_container, HistoryFragment())
                 R.id.bottom_nav_dialogs -> navFt.replace(R.id.fragment_container, DialogsFragment())
             }
-            navFt.addToBackStack(null)
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
             navFt.commit()
             true
         }
+
+        toolbar.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -52,10 +57,28 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val ft = supportFragmentManager.beginTransaction()
-        val prevFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-        prevFragment?.let { ProfileFragment(it) }?.let { ft.replace(R.id.fragment_container, it) }
+        ft.replace(R.id.fragment_container, ProfileFragment())
+        ft.addToBackStack("PROFILE")
         ft.commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        val currentFragment = supportFragmentManager.fragments.first()
+        if (currentFragment is HomeFragment ||
+                currentFragment is PaymentsFragment ||
+                currentFragment is HistoryFragment ||
+                currentFragment is DialogsFragment) {
+
+            AlertDialog.Builder(this)
+                    .setMessage(R.string.logout_title)
+                    .setPositiveButton(R.string.logout) { _: DialogInterface, _: Int ->
+                        App.logout(ModelToken(token), this)
+                    }
+                    .setNegativeButton(R.string.login_cancel, null)
+                    .create().show()
+        }
+        else super.onBackPressed()
     }
 }

@@ -40,6 +40,8 @@ class HistoryFragment : Fragment() {
                     override fun onFailure(call: Call<List<ModelTransaction>>, t: Throwable) {}
                 })
 
+        (activity as HomeActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
         return view
     }
 }

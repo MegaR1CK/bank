@@ -1,19 +1,18 @@
 package com.hfad.worldskillsbank.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hfad.worldskillsbank.App
 import com.hfad.worldskillsbank.R
-import com.hfad.worldskillsbank.adapters.TransactionHistoryAdapter
 import com.hfad.worldskillsbank.activities.HomeActivity
+import com.hfad.worldskillsbank.adapters.TransactionHistoryAdapter
 import com.hfad.worldskillsbank.models.ModelCard
 import com.hfad.worldskillsbank.models.ModelCardPost
 import com.hfad.worldskillsbank.models.ModelTransaction
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_transaction_history.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,12 +22,6 @@ class CardHistoryFragment(private val card: ModelCard) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
-        (activity as HomeActivity).toolbar.setNavigationOnClickListener {
-            val ft = parentFragmentManager.beginTransaction()
-            ft.replace(R.id.fragment_container, CardInfoFragment(card))
-            ft.commit()
-        }
 
         val view = inflater.inflate(R.layout.fragment_transaction_history, container,
             false)

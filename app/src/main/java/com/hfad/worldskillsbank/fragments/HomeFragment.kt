@@ -1,16 +1,16 @@
 package com.hfad.worldskillsbank.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.iterator
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hfad.worldskillsbank.App
-import com.hfad.worldskillsbank.adapters.HomeAdapter
 import com.hfad.worldskillsbank.R
 import com.hfad.worldskillsbank.activities.HomeActivity
+import com.hfad.worldskillsbank.adapters.HomeAdapter
 import com.hfad.worldskillsbank.models.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import retrofit2.Call
@@ -51,8 +51,9 @@ class HomeFragment : Fragment() {
                             (activity as HomeActivity)
                                     .supportActionBar?.setDisplayHomeAsUpEnabled(true)
                             parentFragmentManager.beginTransaction()
-                                .replace(R.id.fragment_container, fragment)
-                                .commit()
+                                    .replace(R.id.fragment_container, fragment)
+                                    .addToBackStack("CARD")
+                                    .commit()
                         }
                     }
                     view.recycler_cards.adapter = adapter
@@ -69,10 +70,11 @@ class HomeFragment : Fragment() {
                     adapter.fragmentReplaceListener = object : HomeAdapter.FragmentReplaceListener {
                         override fun replaceFragment(fragment: Fragment) {
                             (activity as HomeActivity)
-                                .supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                                    .supportActionBar?.setDisplayHomeAsUpEnabled(true)
                             parentFragmentManager.beginTransaction()
-                                .replace(R.id.fragment_container, fragment)
-                                .commit()
+                                    .replace(R.id.fragment_container, fragment)
+                                    .addToBackStack("CHECK")
+                                    .commit()
                         }
                     }
                     view.recycler_checks.adapter = adapter
@@ -88,6 +90,8 @@ class HomeFragment : Fragment() {
             }
             override fun onFailure(call: Call<List<ModelCredit>>, t: Throwable) {}
         })
+
+        (activity as HomeActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         return view
     }

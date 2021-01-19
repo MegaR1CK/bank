@@ -86,4 +86,6 @@
     <string name="transaction_wrong_sum">Неверно введена сумма!</string>
     <string name="transaction_success">Перевод завершен!</string>
     <string name="ok">OK</string>
+    <string name="logout">Выйти</string>
+    <string name="logout_title">Выйти из учетной записи?</string>
 </resources>

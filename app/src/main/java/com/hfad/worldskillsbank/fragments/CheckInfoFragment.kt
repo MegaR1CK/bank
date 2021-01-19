@@ -1,16 +1,14 @@
 package com.hfad.worldskillsbank.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.hfad.worldskillsbank.other.NumberFormatter
+import androidx.fragment.app.Fragment
 import com.hfad.worldskillsbank.R
 import com.hfad.worldskillsbank.dialogs.RenameDialog
-import com.hfad.worldskillsbank.activities.HomeActivity
 import com.hfad.worldskillsbank.models.ModelCheck
-import kotlinx.android.synthetic.main.activity_home.*
+import com.hfad.worldskillsbank.other.NumberFormatter
 import kotlinx.android.synthetic.main.fragment_check_info.view.*
 import java.util.*
 
@@ -20,14 +18,6 @@ class CheckInfoFragment(private val check: ModelCheck) : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_check_info, container, false)
-
-        (activity as HomeActivity).toolbar.setNavigationOnClickListener {
-            parentFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, HomeFragment())
-                    .commit()
-            (activity as HomeActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        }
 
         view.check_info_name.text = check.checkName
         view.check_info_balance.text = String.format(Locale.getDefault(),
@@ -40,9 +30,10 @@ class CheckInfoFragment(private val check: ModelCheck) : Fragment() {
             when (position) {
                 0 -> {
                     parentFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, CheckHistoryFragment(check))
-                        .commit()
+                            .beginTransaction()
+                            .replace(R.id.fragment_container, CheckHistoryFragment(check))
+                            .addToBackStack("CHECK")
+                            .commit()
                 }
                 1 -> {
                     val dialog = RenameDialog(check)

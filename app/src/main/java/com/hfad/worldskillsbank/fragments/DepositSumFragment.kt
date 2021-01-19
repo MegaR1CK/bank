@@ -7,12 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hfad.worldskillsbank.dialogs.AcceptTransactionDialog
-import com.hfad.worldskillsbank.adapters.HomeAdapter
 import com.hfad.worldskillsbank.R
-import com.hfad.worldskillsbank.activities.HomeActivity
+import com.hfad.worldskillsbank.adapters.HomeAdapter
+import com.hfad.worldskillsbank.dialogs.AcceptTransactionDialog
 import com.hfad.worldskillsbank.models.ModelCard
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_deposit_sum.view.*
 
 class DepositSumFragment(private val cardSource: ModelCard, private val  cardDest: ModelCard) : Fragment() {
@@ -23,14 +21,6 @@ class DepositSumFragment(private val cardSource: ModelCard, private val  cardDes
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_deposit_sum, container,
             false)
-
-        (activity as HomeActivity).toolbar.setNavigationOnClickListener {
-            cardDest.cardType = prevCardDestName
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, DepositCardListFragment(cardDest))
-                .commit()
-        }
 
         view.recycler_cards_for_dep.layoutManager = LinearLayoutManager(activity)
         cardSource.cardType = getString(R.string.card_source_title)
@@ -59,5 +49,10 @@ class DepositSumFragment(private val cardSource: ModelCard, private val  cardDes
             }
         }
         return view
+    }
+
+    override fun onStop() {
+        super.onStop()
+        cardDest.cardType = prevCardDestName
     }
 }
