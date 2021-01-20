@@ -62,8 +62,8 @@ class CardInfoFragment(private val card: ModelCard) : Fragment(), View.OnClickLi
             R.id.deposit_btn -> {
                 parentFragmentManager
                         .beginTransaction()
-                        .replace(R.id.fragment_container, DepositCardListFragment(card))
-                        .addToBackStack("CARD")
+                        .replace(R.id.fragment_container, DepositListFragment(card))
+                        .addToBackStack("TRANSACTION")
                         .commit()
             }
         }

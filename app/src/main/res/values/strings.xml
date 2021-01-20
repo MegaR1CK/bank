@@ -80,6 +80,7 @@
     <string name="dep_btn_title">Пополнить</string>
     <string name="card_source_title">Карта отправителя</string>
     <string name="card_dest_title">Карта получателя</string>
+    <string name="check_source_title">Счет отправителя</string>
     <string name="transaction_accept_title">Подтверждение перевода</string>
     <string name="transaction_accept_desc">Подтвердите перевод вводом пароля:</string>
     <string name="transaction_accept_btn">Перевести</string>

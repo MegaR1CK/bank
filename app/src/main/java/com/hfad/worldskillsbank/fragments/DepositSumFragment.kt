@@ -11,9 +11,10 @@ import com.hfad.worldskillsbank.R
 import com.hfad.worldskillsbank.adapters.HomeAdapter
 import com.hfad.worldskillsbank.dialogs.AcceptTransactionDialog
 import com.hfad.worldskillsbank.models.ModelCard
+import com.hfad.worldskillsbank.models.ModelCheck
 import kotlinx.android.synthetic.main.fragment_deposit_sum.view.*
 
-class DepositSumFragment(private val cardSource: ModelCard, private val  cardDest: ModelCard) : Fragment() {
+class DepositSumFragment<T>(private val source: T, private val cardDest: ModelCard) : Fragment() {
 
     lateinit var prevCardDestName: String
 
@@ -23,10 +24,16 @@ class DepositSumFragment(private val cardSource: ModelCard, private val  cardDes
             false)
 
         view.recycler_cards_for_dep.layoutManager = LinearLayoutManager(activity)
-        cardSource.cardType = getString(R.string.card_source_title)
+
+        if (source is ModelCard)
+            source.cardType = getString(R.string.card_source_title)
+        if (source is ModelCheck)
+            source.checkName = getString(R.string.check_source_title)
+
         prevCardDestName = cardDest.cardType
         cardDest.cardType = getString(R.string.card_dest_title)
-        val cardList = listOf(cardSource, cardDest)
+
+        val cardList = listOf(source, cardDest)
         view.recycler_cards_for_dep.adapter = HomeAdapter(cardList)
 
         view.deposit_accept_btn.setOnClickListener {
@@ -35,8 +42,13 @@ class DepositSumFragment(private val cardSource: ModelCard, private val  cardDes
                 Toast.makeText(activity, getString(R.string.transaction_wrong_sum),
                         Toast.LENGTH_SHORT).show()
             else {
-                val dialog = AcceptTransactionDialog(cardSource.cardNumber, cardDest.cardNumber, sum)
-                dialog.transactionSuccessListener = object :
+                var dialog: AcceptTransactionDialog? = null
+                if (source is ModelCard)
+                    dialog = AcceptTransactionDialog(source.cardNumber, cardDest.cardNumber, sum)
+                if (source is ModelCheck)
+                    dialog = AcceptTransactionDialog(source.checkNumber, cardDest.cardNumber, sum)
+
+                dialog?.transactionSuccessListener = object :
                         AcceptTransactionDialog.TransactionSuccessListener {
                     override fun changeFragment(fragment: Fragment) {
                         parentFragmentManager
@@ -45,7 +57,7 @@ class DepositSumFragment(private val cardSource: ModelCard, private val  cardDes
                                 .commit()
                     }
                 }
-                dialog.show(parentFragmentManager.beginTransaction(), "TRANSACTION")
+                dialog?.show(parentFragmentManager.beginTransaction(), "TRANSACTION")
             }
         }
         return view
