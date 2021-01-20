@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hfad.worldskillsbank.App
 import com.hfad.worldskillsbank.R
 import com.hfad.worldskillsbank.activities.HomeActivity
-import com.hfad.worldskillsbank.adapters.DepositListAdapter
+import com.hfad.worldskillsbank.adapters.CardListAdapter
 import com.hfad.worldskillsbank.models.ModelCard
 import com.hfad.worldskillsbank.models.ModelCheck
 import com.hfad.worldskillsbank.models.ModelToken
@@ -29,20 +29,20 @@ class DepositListFragment(val destCard: ModelCard) : Fragment() {
         val view = inflater.inflate(R.layout.fragment_deposit_list, container,
                 false)
 
-        val cardDepListener = object : DepositListAdapter.DepositListener<ModelCard> {
-            override fun changeFragment(source: ModelCard) {
+        val cardDepListener = object : CardListAdapter.CardListListener<ModelCard> {
+            override fun changeFragment(card: ModelCard) {
                 parentFragmentManager
                         .beginTransaction()
-                        .replace(R.id.fragment_container, DepositSumFragment(source, destCard))
+                        .replace(R.id.fragment_container, TransactionSumFragment(card, destCard))
                         .addToBackStack("TRANSACTION")
                         .commit()
             }
         }
-        val checkDepListener = object : DepositListAdapter.DepositListener<ModelCheck> {
-            override fun changeFragment(source: ModelCheck) {
+        val checkDepListener = object : CardListAdapter.CardListListener<ModelCheck> {
+            override fun changeFragment(card: ModelCheck) {
                 parentFragmentManager
                         .beginTransaction()
-                        .replace(R.id.fragment_container, DepositSumFragment(source, destCard))
+                        .replace(R.id.fragment_container, TransactionSumFragment(card, destCard))
                         .addToBackStack("TRANSACTION")
                         .commit()
             }
@@ -56,8 +56,8 @@ class DepositListFragment(val destCard: ModelCard) : Fragment() {
                                             response: Response<List<ModelCard>>) {
                         cardList = response.body()?.toMutableList()
                         cardList?.remove(destCard)
-                        val adapter = cardList?.toList()?.let { DepositListAdapter(it) }
-                        adapter?.depositListener = cardDepListener
+                        val adapter = cardList?.toList()?.let { CardListAdapter(it) }
+                        adapter?.cardListListener = cardDepListener
                         view.recycler_deposit_list.adapter = adapter
                     }
 
@@ -76,13 +76,13 @@ class DepositListFragment(val destCard: ModelCard) : Fragment() {
 
         view.payment_type_radio.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == R.id.payment_type_card) {
-                val replaceAdapter = cardList?.toList()?.let { DepositListAdapter(it) }
-                replaceAdapter?.depositListener = cardDepListener
+                val replaceAdapter = cardList?.toList()?.let { CardListAdapter(it) }
+                replaceAdapter?.cardListListener = cardDepListener
                 view.recycler_deposit_list.adapter = replaceAdapter
             }
             else {
-                val replaceAdapter = checkList?.toList()?.let { DepositListAdapter(it) }
-                replaceAdapter?.depositListener = checkDepListener
+                val replaceAdapter = checkList?.toList()?.let { CardListAdapter(it) }
+                replaceAdapter?.cardListListener = checkDepListener
                 view.recycler_deposit_list.adapter = replaceAdapter
             }
         }

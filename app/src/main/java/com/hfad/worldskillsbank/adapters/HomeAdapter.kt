@@ -32,8 +32,13 @@ class HomeAdapter<T>(private val elements: List<T>) : RecyclerView.Adapter<HomeA
                 view.text_name.text = element.cardType
                 view.text_desc.text = NumberFormatter.formatNumber(element.cardNumber,
                         4, 4)
-                view.text_sum.text = String.format(Locale.getDefault(),
-                    view.context.getString(R.string.home_sum), element.balance)
+
+                if (element.balance < 0) view.text_sum.text =
+                    view.context.getString(R.string.home_sum_none)
+                else
+                    view.text_sum.text = String.format(Locale.getDefault(),
+                        view.context.getString(R.string.home_sum), element.balance)
+
                 if (element.cardType != view.context.getString(R.string.card_source_title) &&
                         element.cardType != view.context.getString(R.string.card_dest_title)) {
                     view.setOnClickListener {

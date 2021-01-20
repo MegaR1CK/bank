@@ -34,6 +34,7 @@ class CardInfoFragment(private val card: ModelCard) : Fragment(), View.OnClickLi
         }
 
         view.deposit_btn.setOnClickListener(this)
+        view.transfer_btn.setOnClickListener(this)
 
         view.card_info_list.setOnItemClickListener { parent, _, position, id ->
             when (position) {
@@ -65,6 +66,13 @@ class CardInfoFragment(private val card: ModelCard) : Fragment(), View.OnClickLi
                         .replace(R.id.fragment_container, DepositListFragment(card))
                         .addToBackStack("TRANSACTION")
                         .commit()
+            }
+            R.id.transfer_btn -> {
+                parentFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, TransferListFragment(card))
+                    .addToBackStack("TRANSACTION")
+                    .commit()
             }
         }
     }

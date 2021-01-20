@@ -12,21 +12,24 @@ import com.hfad.worldskillsbank.adapters.HomeAdapter
 import com.hfad.worldskillsbank.dialogs.AcceptTransactionDialog
 import com.hfad.worldskillsbank.models.ModelCard
 import com.hfad.worldskillsbank.models.ModelCheck
-import kotlinx.android.synthetic.main.fragment_deposit_sum.view.*
+import kotlinx.android.synthetic.main.fragment_transaction_sum.view.*
 
-class DepositSumFragment<T>(private val source: T, private val cardDest: ModelCard) : Fragment() {
+class TransactionSumFragment<T>(private val source: T, private val cardDest: ModelCard) : Fragment() {
 
     lateinit var prevCardDestName: String
+    lateinit var prevCardSourceName: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_deposit_sum, container,
+        val view = inflater.inflate(R.layout.fragment_transaction_sum, container,
             false)
 
         view.recycler_cards_for_dep.layoutManager = LinearLayoutManager(activity)
 
-        if (source is ModelCard)
+        if (source is ModelCard) {
+            prevCardSourceName = source.cardType
             source.cardType = getString(R.string.card_source_title)
+        }
         if (source is ModelCheck)
             source.checkName = getString(R.string.check_source_title)
 
@@ -41,6 +44,10 @@ class DepositSumFragment<T>(private val source: T, private val cardDest: ModelCa
             if (sum == null)
                 Toast.makeText(activity, getString(R.string.transaction_wrong_sum),
                         Toast.LENGTH_SHORT).show()
+            else if (source is ModelCard && source.balance < sum ||
+                    source is ModelCheck && source.balance < sum)
+                Toast.makeText(activity, getString(R.string.not_enough_money),
+                    Toast.LENGTH_SHORT).show()
             else {
                 var dialog: AcceptTransactionDialog? = null
                 if (source is ModelCard)
@@ -66,5 +73,6 @@ class DepositSumFragment<T>(private val source: T, private val cardDest: ModelCa
     override fun onStop() {
         super.onStop()
         cardDest.cardType = prevCardDestName
+        if (source is ModelCard) source.cardType = prevCardSourceName
     }
 }

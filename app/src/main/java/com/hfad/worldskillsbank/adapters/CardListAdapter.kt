@@ -12,8 +12,8 @@ import com.hfad.worldskillsbank.models.ModelCheck
 import kotlinx.android.synthetic.main.item_card.view.*
 import java.util.*
 
-class DepositListAdapter<T>(private val elements: List<T>) :
-        RecyclerView.Adapter<DepositListAdapter<T>.ViewHolder>() {
+class CardListAdapter<T>(private val elements: List<T>) :
+        RecyclerView.Adapter<CardListAdapter<T>.ViewHolder>() {
 
     inner class ViewHolder(val container: LinearLayout) : RecyclerView.ViewHolder(container)
 
@@ -34,7 +34,7 @@ class DepositListAdapter<T>(private val elements: List<T>) :
             view.card_info_balance.text = String.format(Locale.getDefault(),
                     view.context.getString(R.string.home_sum), element.balance)
             if (element.isBlocked) view.card_info_block.visibility = View.VISIBLE
-            else view.setOnClickListener { depositListener.changeFragment(element) }
+            else view.setOnClickListener { cardListListener.changeFragment(element) }
         }
 
         if (element is ModelCheck) {
@@ -43,16 +43,16 @@ class DepositListAdapter<T>(private val elements: List<T>) :
                     0, 6)
             view.card_info_balance.text = String.format(Locale.getDefault(),
                     view.context.getString(R.string.home_sum), element.balance)
-            view.setOnClickListener { depositListener.changeFragment(element) }
+            view.setOnClickListener { cardListListener.changeFragment(element) }
         }
 
     }
 
     override fun getItemCount() = elements.size
 
-    lateinit var depositListener: DepositListener<T>
+    lateinit var cardListListener: CardListListener<T>
 
-    interface DepositListener<T> {
-        fun changeFragment(source: T)
+    interface CardListListener<T> {
+        fun changeFragment(card: T)
     }
 }

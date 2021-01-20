@@ -18,7 +18,8 @@
         android:ems="10"
         android:inputType="numberDecimal"
         android:hint="@string/dep_sum_hint"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"/>
 
     <Button
         android:id="@+id/deposit_accept_btn"

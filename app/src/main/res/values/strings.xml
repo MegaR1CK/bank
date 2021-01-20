@@ -22,6 +22,7 @@
     <string name="home_sum">%1$.2f рублей</string>
     <string name="home_sum_to">+%1$.2f рублей</string>
     <string name="home_sum_from">-%1$.2f рублей</string>
+    <string name="home_sum_none"> </string>
     <string-array name="options_list">
         <item>Изменение пароля</item>
         <item>Изменение логина</item>
@@ -77,7 +78,7 @@
     <string name="dep_switch_card">С карты</string>
     <string name="dep_switch_check">Со счета</string>
     <string name="dep_sum_hint">Введите сумму</string>
-    <string name="dep_btn_title">Пополнить</string>
+    <string name="dep_btn_title">Перевести</string>
     <string name="card_source_title">Карта отправителя</string>
     <string name="card_dest_title">Карта получателя</string>
     <string name="check_source_title">Счет отправителя</string>
@@ -89,4 +90,10 @@
     <string name="ok">OK</string>
     <string name="logout">Выйти</string>
     <string name="logout_title">Выйти из учетной записи?</string>
+    <string name="transfer_list_title">Выберите карту получателя</string>
+    <string name="custom_card_title">Карта любого банка</string>
+    <string name="custom_card_number_hint">Введите номер карты</string>
+    <string name="next">Далее</string>
+    <string name="not_enough_money">Недостаточно денег!</string>
+    <string name="card_num_incorrect">Некорректный номер карты!</string>
 </resources>
