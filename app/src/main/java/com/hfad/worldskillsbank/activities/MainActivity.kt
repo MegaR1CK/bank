@@ -26,9 +26,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         if (preferences.contains("TOKEN")) {
             App.WAS_AUTHORIZED = true
+            App.TOKEN = preferences.getString("TOKEN", null).toString()
             val intent = Intent(this, HomeActivity::class.java)
-            intent.putExtra(HomeActivity.TOKEN_TITLE,
-                    preferences.getString("TOKEN", null))
             intent.putExtra(HomeActivity.PASSWORD_TITLE,
                     preferences.getString("PASSWORD", null))
             startActivity(intent)

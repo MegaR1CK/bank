@@ -16,17 +16,14 @@ import kotlinx.android.synthetic.main.activity_home.*
 class HomeActivity : AppCompatActivity() {
 
     companion object {
-        val TOKEN_TITLE = "TOKEN"
         val PASSWORD_TITLE = "PASSWORD"
     }
 
-    lateinit var token: String
     lateinit var password: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        token = intent.extras?.getString(TOKEN_TITLE).toString()
         password = intent.extras?.getString(PASSWORD_TITLE).toString()
         setSupportActionBar(toolbar as Toolbar)
 
@@ -74,7 +71,7 @@ class HomeActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                     .setMessage(R.string.logout_title)
                     .setPositiveButton(R.string.logout) { _: DialogInterface, _: Int ->
-                        App.logout(ModelToken(token), this)
+                        App.logout(ModelToken(App.TOKEN), this)
                     }
                     .setNegativeButton(R.string.login_cancel, null)
                     .create().show()

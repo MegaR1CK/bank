@@ -45,8 +45,8 @@ class LoginDialog : DialogFragment() {
                         editor.putString("TOKEN", resp)
                         editor.putString("PASSWORD", password)
                         editor.apply()
+                        App.TOKEN = resp
                         val intent = Intent(activity, HomeActivity::class.java)
-                        intent.putExtra(HomeActivity.TOKEN_TITLE, resp)
                         intent.putExtra(HomeActivity.PASSWORD_TITLE, password)
                         dialog.dismiss()
                         startActivity(intent)

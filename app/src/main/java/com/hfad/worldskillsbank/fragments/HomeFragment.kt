@@ -28,12 +28,10 @@ class HomeFragment : Fragment() {
         view.recycler_checks.layoutManager = LinearLayoutManager(activity)
         view.recycler_credits.layoutManager = LinearLayoutManager(activity)
 
-        val token = (activity as HomeActivity).token
-
         activity?.title = getString(R.string.loading_title)
         for (v in view.recycler_layout) v.visibility = View.GONE
 
-        App.MAIN_API.getUser(ModelToken(token)).enqueue(object : Callback<ModelUser> {
+        App.MAIN_API.getUser(ModelToken(App.TOKEN)).enqueue(object : Callback<ModelUser> {
             override fun onResponse(call: Call<ModelUser>, response: Response<ModelUser>) {
                 for (v in view.recycler_layout) v.visibility = View.VISIBLE
                 response.body()?.let { (activity as HomeActivity).title = it.name + " " + it.midname }
@@ -41,7 +39,7 @@ class HomeFragment : Fragment() {
             override fun onFailure(call: Call<ModelUser>, t: Throwable) {}
         })
 
-        App.MAIN_API.getCards(ModelToken(token)).enqueue(object : Callback<List<ModelCard>> {
+        App.MAIN_API.getCards(ModelToken(App.TOKEN)).enqueue(object : Callback<List<ModelCard>> {
             override fun onResponse(call: Call<List<ModelCard>>,
                                     response: Response<List<ModelCard>>) {
                 response.body()?.let {
@@ -62,7 +60,7 @@ class HomeFragment : Fragment() {
             override fun onFailure(call: Call<List<ModelCard>>, t: Throwable) {}
         })
 
-        App.MAIN_API.getChecks(ModelToken(token)).enqueue(object : Callback<List<ModelCheck>> {
+        App.MAIN_API.getChecks(ModelToken(App.TOKEN)).enqueue(object : Callback<List<ModelCheck>> {
             override fun onResponse(call: Call<List<ModelCheck>>,
                                     response: Response<List<ModelCheck>>) {
                 response.body()?.let {
@@ -83,7 +81,7 @@ class HomeFragment : Fragment() {
             override fun onFailure(call: Call<List<ModelCheck>>, t: Throwable) {}
         })
 
-        App.MAIN_API.getCredits(ModelToken(token)).enqueue(object : Callback<List<ModelCredit>> {
+        App.MAIN_API.getCredits(ModelToken(App.TOKEN)).enqueue(object : Callback<List<ModelCredit>> {
             override fun onResponse(call: Call<List<ModelCredit>>,
                                     response: Response<List<ModelCredit>>) {
                 response.body()?.let { view.recycler_credits.adapter = HomeAdapter(it) }

@@ -50,7 +50,7 @@ class DepositListFragment(val destCard: ModelCard) : Fragment() {
 
         view.recycler_deposit_list.layoutManager = LinearLayoutManager(activity)
 
-        App.MAIN_API.getCards(ModelToken((activity as HomeActivity).token))
+        App.MAIN_API.getCards(ModelToken(App.TOKEN))
                 .enqueue(object : Callback<List<ModelCard>> {
                     override fun onResponse(call: Call<List<ModelCard>>,
                                             response: Response<List<ModelCard>>) {
@@ -64,7 +64,7 @@ class DepositListFragment(val destCard: ModelCard) : Fragment() {
                     override fun onFailure(call: Call<List<ModelCard>>, t: Throwable) {}
                 })
 
-        App.MAIN_API.getChecks(ModelToken((activity as HomeActivity).token))
+        App.MAIN_API.getChecks(ModelToken(App.TOKEN))
                 .enqueue(object : Callback<List<ModelCheck>> {
                     override fun onResponse(call: Call<List<ModelCheck>>,
                                             response: Response<List<ModelCheck>>) {

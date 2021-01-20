@@ -26,7 +26,7 @@ class TransferListFragment (val sourceCard: ModelCard) : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_transfer_list, container, false)
 
-        App.MAIN_API.getCards(ModelToken((activity as HomeActivity).token))
+        App.MAIN_API.getCards(ModelToken(App.TOKEN))
             .enqueue(object : Callback<List<ModelCard>> {
                 override fun onResponse(call: Call<List<ModelCard>>,
                                         response: Response<List<ModelCard>>) {

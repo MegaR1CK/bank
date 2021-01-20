@@ -38,7 +38,7 @@ class CardBlockDialog(val card: ModelCard) : DialogFragment() {
 
         dialog.getButton(Dialog.BUTTON_POSITIVE).setOnClickListener {
             if (dialog.edit_field.text.toString() == (activity as HomeActivity).password) {
-                App.MAIN_API.blockCard(ModelCardPost((activity as HomeActivity).token,
+                App.MAIN_API.blockCard(ModelCardPost(App.TOKEN,
                         card.cardNumber)).enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         (activity as HomeActivity).card_info_block.visibility = View.VISIBLE

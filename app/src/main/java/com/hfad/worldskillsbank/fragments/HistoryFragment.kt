@@ -28,7 +28,7 @@ class HistoryFragment : Fragment() {
 
         view.recycler_transaction_history.layoutManager = LinearLayoutManager(activity)
 
-        App.MAIN_API.getTransactions(ModelToken((activity as HomeActivity).token))
+        App.MAIN_API.getTransactions(ModelToken(App.TOKEN))
                 .enqueue(object : Callback<List<ModelTransaction>> {
                     override fun onResponse(call: Call<List<ModelTransaction>>,
                                             response: Response<List<ModelTransaction>>) {

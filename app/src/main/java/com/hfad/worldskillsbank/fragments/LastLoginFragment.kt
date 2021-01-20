@@ -26,7 +26,7 @@ class LastLoginFragment : Fragment() {
 
         view.layoutManager = LinearLayoutManager(activity)
 
-        App.MAIN_API.getLastLogin(ModelToken((activity as HomeActivity).token))
+        App.MAIN_API.getLastLogin(ModelToken(App.TOKEN))
             .enqueue(object : Callback<List<ModelLastLogin>> {
                 override fun onResponse(call: Call<List<ModelLastLogin>>,
                                         response: Response<List<ModelLastLogin>>) {

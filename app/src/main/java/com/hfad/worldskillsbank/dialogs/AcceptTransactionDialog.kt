@@ -18,17 +18,19 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AcceptTransactionDialog(val numSource: String,
-                              val numDest: String,
-                              val sum: Double) : DialogFragment() {
+class AcceptTransactionDialog(
+    val numSource: String,
+    val numDest: String,
+    val sum: Double
+) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
         return builder.setTitle(getString(R.string.transaction_accept_title))
-                .setView(R.layout.dialog_one_field)
-                .setPositiveButton(R.string.transaction_accept_btn, null)
-                .setNegativeButton(R.string.login_cancel, null)
-                .create()
+            .setView(R.layout.dialog_one_field)
+            .setPositiveButton(R.string.transaction_accept_btn, null)
+            .setNegativeButton(R.string.login_cancel, null)
+            .create()
     }
 
     override fun onResume() {
@@ -42,15 +44,19 @@ class AcceptTransactionDialog(val numSource: String,
         val button = dialog.getButton(Dialog.BUTTON_POSITIVE)
         button.setOnClickListener {
             if (dialog.edit_field.text.toString() == (activity as HomeActivity).password) {
-                App.MAIN_API.doTransaction(ModelTransactionPost((activity as HomeActivity).token,
-                        numSource, numDest, sum)).enqueue(object : Callback<Void> {
+                App.MAIN_API.doTransaction(
+                    ModelTransactionPost(
+                        App.TOKEN,
+                        numSource, numDest, sum
+                    )
+                ).enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         val dialogSuccess = AlertDialog.Builder(activity)
-                                .setMessage(R.string.transaction_success)
-                                .setPositiveButton(R.string.ok) { dialog1: DialogInterface, _: Int ->
-                                    transactionSuccessListener.changeFragment(HomeFragment())
-                                    dialog1.dismiss()
-                                }
+                            .setMessage(R.string.transaction_success)
+                            .setPositiveButton(R.string.ok) { dialog1: DialogInterface, _: Int ->
+                                transactionSuccessListener.changeFragment(HomeFragment())
+                                dialog1.dismiss()
+                            }
                         dialogSuccess.create().show()
                         dialog.dismiss()
                     }
@@ -58,8 +64,7 @@ class AcceptTransactionDialog(val numSource: String,
                     override fun onFailure(call: Call<Void>, t: Throwable) {}
 
                 })
-            }
-            else Toast.makeText(activity, R.string.wrong_password, Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(activity, R.string.wrong_password, Toast.LENGTH_SHORT).show()
         }
     }
 

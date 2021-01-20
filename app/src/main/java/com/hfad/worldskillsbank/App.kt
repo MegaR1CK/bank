@@ -18,6 +18,7 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 class App : Application() {
     companion object {
         var WAS_AUTHORIZED = false
+        lateinit var TOKEN: String
 
         private val retrofit: Retrofit = Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:57905/api/")

@@ -27,7 +27,7 @@ class CheckHistoryFragment(private val check: ModelCheck) : Fragment() {
 
         view.recycler_transaction_history.layoutManager = LinearLayoutManager(activity)
 
-        App.MAIN_API.getCheckTransactions(ModelCheckPost((activity as HomeActivity).token,
+        App.MAIN_API.getCheckTransactions(ModelCheckPost(App.TOKEN,
             check.checkNumber)).enqueue(object : Callback<List<ModelTransaction>> {
             override fun onResponse(
                     call: Call<List<ModelTransaction>>,

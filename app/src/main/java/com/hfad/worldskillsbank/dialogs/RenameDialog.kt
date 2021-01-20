@@ -46,7 +46,7 @@ class RenameDialog<T>(private val item: T) : DialogFragment() {
             if (dialog.edit_field.text.isNotBlank()) {
                 if (item is ModelCard) {
                     App.MAIN_API.renameCard(ModelRenameCard(
-                        (activity as HomeActivity).token,
+                        App.TOKEN,
                         item.cardNumber,
                         dialog.edit_field.text.toString()))
                         .enqueue(object : Callback<Void> {
@@ -61,7 +61,7 @@ class RenameDialog<T>(private val item: T) : DialogFragment() {
                 }
                 if (item is ModelCheck) {
                     App.MAIN_API.renameCheck(ModelRenameCheck(
-                        (activity as HomeActivity).token,
+                        App.TOKEN,
                         item.checkNumber,
                         dialog.edit_field.text.toString()))
                         .enqueue(object : Callback<Void> {
