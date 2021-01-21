@@ -21,7 +21,6 @@ import java.util.*
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         if (preferences.contains("TOKEN")) {
@@ -33,6 +32,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             startActivity(intent)
         }
         else App.WAS_AUTHORIZED = false
+
+        setContentView(R.layout.activity_main)
 
         valute_btn.btn_date.text = SimpleDateFormat("dd.MM.yyyy",
             Locale.getDefault()).format(Date())

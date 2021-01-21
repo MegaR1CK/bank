@@ -14,14 +14,14 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
-
+// TODO: Уведомления при платежах
 class App : Application() {
     companion object {
         var WAS_AUTHORIZED = false
         lateinit var TOKEN: String
 
         private val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:57905/api/")
+                .baseUrl("http://ws-bank.somee.com/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 

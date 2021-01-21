@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -17,12 +18,12 @@ import kotlinx.android.synthetic.main.dialog_one_field.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
-class AcceptTransactionDialog(
-    val numSource: String,
-    val numDest: String,
-    val sum: Double
-) : DialogFragment() {
+class AcceptTransactionDialog(val numSource: String,
+                              val numDest: String,
+                              val sum: Double) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
@@ -41,15 +42,15 @@ class AcceptTransactionDialog(
         dialog.edit_desc.text = getString(R.string.transaction_accept_desc)
         dialog.edit_field.transformationMethod = PasswordTransformationMethod.getInstance()
 
+        val currentDate = SimpleDateFormat("dd.MM.yyyy HH:mm",
+            Locale.getDefault()).format(Date())
+
         val button = dialog.getButton(Dialog.BUTTON_POSITIVE)
         button.setOnClickListener {
             if (dialog.edit_field.text.toString() == (activity as HomeActivity).password) {
                 App.MAIN_API.doTransaction(
-                    ModelTransactionPost(
-                        App.TOKEN,
-                        numSource, numDest, sum
-                    )
-                ).enqueue(object : Callback<Void> {
+                    ModelTransactionPost(App.TOKEN, numSource, numDest, currentDate, sum))
+                    .enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         val dialogSuccess = AlertDialog.Builder(activity)
                             .setMessage(R.string.transaction_success)
@@ -58,6 +59,7 @@ class AcceptTransactionDialog(
                                 dialog1.dismiss()
                             }
                         dialogSuccess.create().show()
+                        Log.d("APP", response.message())
                         dialog.dismiss()
                     }
 

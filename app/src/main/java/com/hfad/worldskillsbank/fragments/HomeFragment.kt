@@ -81,7 +81,7 @@ class HomeFragment : Fragment() {
             override fun onFailure(call: Call<List<ModelCheck>>, t: Throwable) {}
         })
 
-        App.MAIN_API.getCredits(ModelToken(App.TOKEN)).enqueue(object : Callback<List<ModelCredit>> {
+        App.MAIN_API.getCredits(ModelToken(App.TOKEN )).enqueue(object : Callback<List<ModelCredit>> {
             override fun onResponse(call: Call<List<ModelCredit>>,
                                     response: Response<List<ModelCredit>>) {
                 response.body()?.let { view.recycler_credits.adapter = HomeAdapter(it) }

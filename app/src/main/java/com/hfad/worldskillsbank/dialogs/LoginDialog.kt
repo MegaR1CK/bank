@@ -36,16 +36,16 @@ class LoginDialog : DialogFragment() {
             val password = dialog.field_password.text.toString()
             App.MAIN_API.login(ModelLogin(username, password)).enqueue(object : Callback<ModelToken> {
                 override fun onResponse(call: Call<ModelToken>, response: Response<ModelToken>) {
-                    val resp = response.body()?.token
-                    if (resp?.length != 25)
-                        Toast.makeText(activity, resp, Toast.LENGTH_SHORT).show()
+                    if (!response.isSuccessful)
+                        Toast.makeText(activity, response.message(), Toast.LENGTH_SHORT).show()
                     else {
+                        val resp = response.body()?.token
                         val preferences = PreferenceManager.getDefaultSharedPreferences(activity)
                         val editor = preferences.edit()
                         editor.putString("TOKEN", resp)
                         editor.putString("PASSWORD", password)
                         editor.apply()
-                        App.TOKEN = resp
+                        if (resp != null) { App.TOKEN = resp }
                         val intent = Intent(activity, HomeActivity::class.java)
                         intent.putExtra(HomeActivity.PASSWORD_TITLE, password)
                         dialog.dismiss()

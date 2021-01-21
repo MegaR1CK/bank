@@ -19,9 +19,9 @@
     <string name="cards_title">МОИ КАРТЫ</string>
     <string name="checks_title">МОИ СЧЕТА</string>
     <string name="credits_title">МОИ КРЕДИТЫ</string>
-    <string name="home_sum">%1$.2f рублей</string>
-    <string name="home_sum_to">+%1$.2f рублей</string>
-    <string name="home_sum_from">-%1$.2f рублей</string>
+    <string name="home_sum">%1$.2f руб.</string>
+    <string name="home_sum_to">+%1$.2f руб.</string>
+    <string name="home_sum_from">-%1$.2f руб.</string>
     <string name="home_sum_none"> </string>
     <string-array name="options_list">
         <item>Изменение пароля</item>
@@ -96,4 +96,17 @@
     <string name="next">Далее</string>
     <string name="not_enough_money">Недостаточно денег!</string>
     <string name="card_num_incorrect">Некорректный номер карты!</string>
+    <string-array name="payments_list">
+        <item>Сотовая связь</item>
+        <item>Квартплата</item>
+        <item>Интернет</item>
+        <item>Штрафы</item>
+        <item>Страхование</item>
+    </string-array>
+    <string name="payment_accept_number">Введите номер договора</string>
+    <string name="payment_accept_card">Выберите карту</string>
+    <string name="payment_accept_sum">Введите сумму</string>
+    <string name="payment_accept_number_hint">Номер договора</string>
+    <string name="payment_accept_sum_hint">Сумма</string>
+    <string name="payment_accept_btn">Оплатить</string>
 </resources>
