@@ -109,4 +109,10 @@
     <string name="payment_accept_number_hint">Номер договора</string>
     <string name="payment_accept_sum_hint">Сумма</string>
     <string name="payment_accept_btn">Оплатить</string>
+    <string name="payment_templates"><u>Смотреть все шаблоны</u></string>
+    <string name="template_delete">Удалить</string>
+    <string name="template_edit">Изменить</string>
+    <string name="template_phone">Шаблон сотовой связи</string>
+    <string name="template_internet">Шаблон интернета</string>
+    <string name="template_apart">Шаблон квартплаты</string>
 </resources>

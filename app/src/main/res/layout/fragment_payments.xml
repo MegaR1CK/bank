@@ -21,6 +21,17 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:cardCornerRadius="50dp"/>
+
+        <TextView
+            android:id="@+id/payments_templates_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/payment_templates"
+            android:gravity="end"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="@color/white"
+            android:layout_marginStart="100dp" />
     </LinearLayout>
 
     <ListView

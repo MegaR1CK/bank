@@ -10,31 +10,27 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.hfad.worldskillsbank.App
 import com.hfad.worldskillsbank.R
-import com.hfad.worldskillsbank.dialogs.AcceptTransactionDialog
 import com.hfad.worldskillsbank.models.ModelCard
 import com.hfad.worldskillsbank.models.ModelToken
+import com.hfad.worldskillsbank.models.ModelTemplate
+import com.hfad.worldskillsbank.models.ModelTemplatePost
+import kotlinx.android.synthetic.main.fragment_payment_accept.*
 import kotlinx.android.synthetic.main.fragment_payment_accept.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-//TODO: уведомления
-//TODO: загрузка spinner
-//TODO: карты
-//TODO: обработка блокированных карт
-class PaymentAcceptFragment(private val paymentNum: String = "",
-                            val cardNumber: String = "",
-                            private val paymentSum: Double = 0.0) : Fragment() {
+class EditTemplateFragment(private val template: ModelTemplate) : Fragment() {
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_payment_accept, container, false)
 
-        if (paymentNum != "" && paymentSum != 0.0) {
-            view.payment_num_field.setText(paymentNum, TextView.BufferType.EDITABLE)
-            view.payment_sum_field.setText(paymentSum.toString(), TextView.BufferType.EDITABLE)
-        }
+        view.payment_btn.text = getString(R.string.template_edit)
+        view.payment_num_field.setText(template.destNumber, TextView.BufferType.EDITABLE)
+        view.payment_sum_field.setText(template.sum.toString(), TextView.BufferType.EDITABLE)
 
         App.MAIN_API.getCards(ModelToken(App.TOKEN)).enqueue(object: Callback<List<ModelCard>> {
             override fun onResponse(call: Call<List<ModelCard>>,
@@ -44,29 +40,34 @@ class PaymentAcceptFragment(private val paymentNum: String = "",
                 val adapter = activity?.let { ArrayAdapter(it,
                     android.R.layout.simple_spinner_dropdown_item, cardNumbers) }
                 view.payment_spinner.adapter = adapter
-                if (cardNumber != "")
-                    adapter?.getPosition(cardNumber)?.let { view.payment_spinner.setSelection(it) }
+                adapter?.getPosition(template.cardNumber)?.let {
+                    view.payment_spinner.setSelection(it)
+                }
             }
             override fun onFailure(call: Call<List<ModelCard>>, t: Throwable) {}
         })
 
         view.payment_btn.setOnClickListener {
-            val sum = view.payment_sum_field.text.toString().toDoubleOrNull()
-            if (sum != null) {
-                val dialog = AcceptTransactionDialog(view.payment_spinner.selectedItem.toString(),
-                    view.payment_num_field.text.toString(), sum)
-                dialog.transactionSuccessListener = object :
-                    AcceptTransactionDialog.TransactionSuccessListener {
-                    override fun changeFragment(fragment: Fragment) {
+            val sum = payment_sum_field.text.toString().toDoubleOrNull()
+            if (sum != null)
+                App.MAIN_API.editTemplate(ModelTemplatePost(
+                    template.id,
+                    template.name,
+                    view.payment_num_field.text.toString(),
+                    view.payment_spinner.selectedItem.toString(),
+                    sum, template.owner, App.TOKEN)
+                ).enqueue(object : Callback<Void> {
+
+                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         parentFragmentManager
                             .beginTransaction()
-                            .replace(R.id.fragment_container, fragment)
+                            .replace(R.id.fragment_container, TemplatesFragment())
                             .commit()
                     }
-                }
-                dialog.show(parentFragmentManager.beginTransaction(), "TRANSACTION")
-            }
-            else Toast.makeText(activity, R.string.transaction_wrong_sum, Toast.LENGTH_SHORT).show()
+                    override fun onFailure(call: Call<Void>, t: Throwable) {}
+                })
+            else Toast.makeText(activity, getString(R.string.transaction_wrong_sum),
+                Toast.LENGTH_SHORT).show()
         }
         return view
     }

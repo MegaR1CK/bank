@@ -34,6 +34,8 @@ android {
 }
 
 dependencies {
+
+    implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
     implementation "androidx.preference:preference-ktx:1.1.1"
     implementation 'com.squareup.retrofit2:converter-simplexml:2.5.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

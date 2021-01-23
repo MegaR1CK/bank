@@ -17,10 +17,20 @@ class PaymentsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_payments, container, false)
 
         view.payment_list.setOnItemClickListener { parent, _, position, id ->
+            (activity as HomeActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
             parentFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragment_container, PaymentAcceptFragment())
                 .addToBackStack("PAYMENT")
+                .commit()
+        }
+
+        view.payments_templates_link.setOnClickListener {
+            (activity as HomeActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, TemplatesFragment())
+                .addToBackStack("TEMPLATE")
                 .commit()
         }
 

@@ -55,4 +55,13 @@ interface ApiMain {
 
     @POST("history/all")
     fun getTransactions(@Body token: ModelToken): Call<List<ModelTransaction>>
+
+    @POST("templates")
+    fun getTemplates(@Body token: ModelToken): Call<List<ModelTemplate>>
+
+    @PUT("templates")
+    fun editTemplate(@Body template: ModelTemplatePost): Call<Void>
+
+    @HTTP(method = "DELETE", path = "templates", hasBody = true)
+    fun deleteTemplate(@Body template: ModelTemplatePost): Call<Void>
 }

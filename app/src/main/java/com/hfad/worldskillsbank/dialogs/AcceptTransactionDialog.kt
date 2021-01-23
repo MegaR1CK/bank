@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -59,7 +58,6 @@ class AcceptTransactionDialog(val numSource: String,
                                 dialog1.dismiss()
                             }
                         dialogSuccess.create().show()
-                        Log.d("APP", response.message())
                         dialog.dismiss()
                     }
 

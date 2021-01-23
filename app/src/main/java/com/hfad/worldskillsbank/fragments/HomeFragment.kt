@@ -12,6 +12,7 @@ import com.hfad.worldskillsbank.R
 import com.hfad.worldskillsbank.activities.HomeActivity
 import com.hfad.worldskillsbank.adapters.HomeAdapter
 import com.hfad.worldskillsbank.models.*
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,6 +31,9 @@ class HomeFragment : Fragment() {
 
         activity?.title = getString(R.string.loading_title)
         for (v in view.recycler_layout) v.visibility = View.GONE
+
+        val menuItem = (activity as HomeActivity).bottom_nav_view.menu.findItem(R.id.bottom_nav_home)
+        if (!menuItem.isChecked) menuItem.isChecked = true
 
         App.MAIN_API.getUser(ModelToken(App.TOKEN)).enqueue(object : Callback<ModelUser> {
             override fun onResponse(call: Call<ModelUser>, response: Response<ModelUser>) {
