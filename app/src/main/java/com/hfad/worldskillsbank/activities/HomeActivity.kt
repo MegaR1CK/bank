@@ -48,7 +48,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_home, menu)
+        menu?.clear()
+        if (supportFragmentManager.fragments.first() is HistoryFragment)
+            menuInflater.inflate(R.menu.menu_search, menu)
+        else menuInflater.inflate(R.menu.menu_home, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

@@ -94,6 +94,7 @@ class HomeFragment : Fragment() {
         })
 
         (activity as HomeActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as HomeActivity).onCreateOptionsMenu((activity as HomeActivity).toolbar.menu)
 
         return view
     }

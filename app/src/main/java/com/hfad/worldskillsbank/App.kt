@@ -14,7 +14,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
-// TODO: Уведомления при платежах
+//TODO: Уведомления при платежах
+//TODO: загрузка spinner
+//TODO: карты
+//TODO: обработка блокированных карт
+//TODO: запрос к картам только при запуске и платежах, хранение списка в App
 class App : Application() {
     companion object {
         var WAS_AUTHORIZED = false

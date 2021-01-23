@@ -18,10 +18,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-//TODO: уведомления
-//TODO: загрузка spinner
-//TODO: карты
-//TODO: обработка блокированных карт
 class PaymentAcceptFragment(private val paymentNum: String = "",
                             val cardNumber: String = "",
                             private val paymentSum: Double = 0.0) : Fragment() {

@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.hfad.worldskillsbank.R
 import com.hfad.worldskillsbank.activities.HomeActivity
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_payments.view.*
 
 class PaymentsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         (activity as HomeActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as HomeActivity).onCreateOptionsMenu((activity as HomeActivity).toolbar.menu)
 
         val view = inflater.inflate(R.layout.fragment_payments, container, false)
 
