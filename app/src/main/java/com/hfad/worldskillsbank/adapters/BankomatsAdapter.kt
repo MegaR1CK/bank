@@ -38,9 +38,19 @@ class BankomatsAdapter(private val bankomats: List<ModelBankomat>) : RecyclerVie
             view.text_status.text = "Не работает"
             view.text_status.setTextColor(Color.RED)
         }
+
+        view.setOnClickListener {
+            bankomatListener.moveCard(position)
+        }
     }
 
     override fun getItemCount() = bankomats.size
 
     inner class ViewHolder(val container: ConstraintLayout) : RecyclerView.ViewHolder(container)
+
+    lateinit var bankomatListener: BankomatListener
+
+    interface BankomatListener {
+        fun moveCard(pos: Int)
+    }
 }

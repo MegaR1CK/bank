@@ -115,4 +115,8 @@
     <string name="template_phone">Шаблон сотовой связи</string>
     <string name="template_internet">Шаблон интернета</string>
     <string name="template_apart">Шаблон квартплаты</string>
+    <string name="gps_disabled_title">Сервисы отключены</string>
+    <string name="gps_disabled_desc">Приложение не может получить доступ к вашему местоположению.
+        Пожалуйста, включите сеть и GPS, а также предоставьте приложению необходимые разрешения.
+    </string>
 </resources>
