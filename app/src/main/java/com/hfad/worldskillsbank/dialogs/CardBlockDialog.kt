@@ -15,6 +15,9 @@ import com.hfad.worldskillsbank.models.ModelCardPost
 import kotlinx.android.synthetic.main.dialog_one_field.*
 import kotlinx.android.synthetic.main.fragment_card_info.*
 import kotlinx.android.synthetic.main.item_card.*
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +32,7 @@ class CardBlockDialog(val card: ModelCard) : DialogFragment() {
                 .create()
     }
 
+    @ObsoleteCoroutinesApi
     override fun onResume() {
         super.onResume()
         val dialog = dialog as AlertDialog
@@ -45,6 +49,9 @@ class CardBlockDialog(val card: ModelCard) : DialogFragment() {
                         (activity as HomeActivity).card_info_list.visibility = View.INVISIBLE
                         (activity as HomeActivity).deposit_btn.isEnabled = false
                         (activity as HomeActivity).transfer_btn.isEnabled = false
+                        runBlocking(newSingleThreadContext("CARDS")) {
+                            App.updateCardList()
+                        }
                         dialog.dismiss()
                     }
                     override fun onFailure(call: Call<Void>, t: Throwable) {}

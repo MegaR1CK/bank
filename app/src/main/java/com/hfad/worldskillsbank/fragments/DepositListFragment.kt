@@ -50,29 +50,13 @@ class DepositListFragment(val destCard: ModelCard) : Fragment() {
 
         view.recycler_deposit_list.layoutManager = LinearLayoutManager(activity)
 
-        App.MAIN_API.getCards(ModelToken(App.TOKEN))
-                .enqueue(object : Callback<List<ModelCard>> {
-                    override fun onResponse(call: Call<List<ModelCard>>,
-                                            response: Response<List<ModelCard>>) {
-                        cardList = response.body()?.toMutableList()
-                        cardList?.remove(destCard)
-                        val adapter = cardList?.toList()?.let { CardListAdapter(it) }
-                        adapter?.cardListListener = cardDepListener
-                        view.recycler_deposit_list.adapter = adapter
-                    }
+        cardList = App.CARDS.toMutableList()
+        cardList?.remove(destCard)
+        val adapter = cardList?.toList()?.let { CardListAdapter(it) }
+        adapter?.cardListListener = cardDepListener
+        view.recycler_deposit_list.adapter = adapter
 
-                    override fun onFailure(call: Call<List<ModelCard>>, t: Throwable) {}
-                })
-
-        App.MAIN_API.getChecks(ModelToken(App.TOKEN))
-                .enqueue(object : Callback<List<ModelCheck>> {
-                    override fun onResponse(call: Call<List<ModelCheck>>,
-                                            response: Response<List<ModelCheck>>) {
-                        checkList = response.body()?.toMutableList()
-                    }
-
-                    override fun onFailure(call: Call<List<ModelCheck>>, t: Throwable) {}
-                })
+        checkList = App.CHECKS.toMutableList()
 
         view.payment_type_radio.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == R.id.payment_type_card) {

@@ -8,6 +8,9 @@ import com.hfad.worldskillsbank.activities.MainActivity
 import com.hfad.worldskillsbank.api.ApiGeocoder
 import com.hfad.worldskillsbank.api.ApiMain
 import com.hfad.worldskillsbank.api.ApiXml
+import com.hfad.worldskillsbank.models.ModelCard
+import com.hfad.worldskillsbank.models.ModelCheck
+import com.hfad.worldskillsbank.models.ModelCredit
 import com.hfad.worldskillsbank.models.ModelToken
 import com.yandex.mapkit.MapKitFactory
 import retrofit2.Call
@@ -21,11 +24,16 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 //TODO: загрузка spinner
 //TODO: обработка блокированных карт
 //TODO: запрос к картам только при запуске и платежах, хранение списка в App
-//TODO: обработка входа с нескольких устройств
+//TODO: обработка входа с нескольких устройств ?
+//TODO: обработка failure
 class App : Application() {
     companion object {
         var WAS_AUTHORIZED = false
         lateinit var TOKEN: String
+        var CARDS = listOf<ModelCard>()
+        var CHECKS = listOf<ModelCheck>()
+        var CREDITS = listOf<ModelCredit>()
+        var USERNAME: String? = null
 
         private val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("http://ws-bank.somee.com/api/")
@@ -62,6 +70,20 @@ class App : Application() {
                 }
                 override fun onFailure(call: Call<Void>, t: Throwable) {}
             })
+        }
+
+        fun updateCardList() {
+            CARDS = MAIN_API.getCards(ModelToken(TOKEN)).execute().body() ?: listOf()
+        }
+        fun updateCheckList() {
+            CHECKS = MAIN_API.getChecks(ModelToken(TOKEN)).execute().body() ?: listOf()
+        }
+        fun updateUsername() {
+            val username = MAIN_API.getUser(ModelToken(TOKEN)).execute().body()
+            USERNAME = username?.name + " " + username?.midname
+        }
+        fun updateCreditsList() {
+            CREDITS = MAIN_API.getCredits(ModelToken(TOKEN)).execute().body() ?: listOf()
         }
     }
 

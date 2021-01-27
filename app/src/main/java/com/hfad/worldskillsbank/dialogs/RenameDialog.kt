@@ -7,12 +7,14 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.hfad.worldskillsbank.App
 import com.hfad.worldskillsbank.R
-import com.hfad.worldskillsbank.activities.HomeActivity
 import com.hfad.worldskillsbank.models.ModelCard
 import com.hfad.worldskillsbank.models.ModelCheck
 import com.hfad.worldskillsbank.models.ModelRenameCard
 import com.hfad.worldskillsbank.models.ModelRenameCheck
 import kotlinx.android.synthetic.main.dialog_one_field.*
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,6 +33,7 @@ class RenameDialog<T>(private val item: T) : DialogFragment() {
         return builder.create()
     }
 
+    @ObsoleteCoroutinesApi
     override fun onResume() {
         super.onResume()
         val dialog = dialog as AlertDialog
@@ -53,7 +56,9 @@ class RenameDialog<T>(private val item: T) : DialogFragment() {
                             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                                 Toast.makeText(activity, getString(R.string.card_rename_success),
                                     Toast.LENGTH_SHORT).show()
-
+                                runBlocking(newSingleThreadContext("CARDS")) {
+                                    App.updateCardList()
+                                }
                                 dialog.dismiss()
                             }
                             override fun onFailure(call: Call<Void>, t: Throwable) {}
@@ -68,7 +73,9 @@ class RenameDialog<T>(private val item: T) : DialogFragment() {
                             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                                 Toast.makeText(activity, getString(R.string.check_rename_success),
                                     Toast.LENGTH_SHORT).show()
-
+                                runBlocking(newSingleThreadContext("CHECKS")) {
+                                    App.updateCheckList()
+                                }
                                 dialog.dismiss()
                             }
                             override fun onFailure(call: Call<Void>, t: Throwable) {}

@@ -32,20 +32,14 @@ class EditTemplateFragment(private val template: ModelTemplate) : Fragment() {
         view.payment_num_field.setText(template.destNumber, TextView.BufferType.EDITABLE)
         view.payment_sum_field.setText(template.sum.toString(), TextView.BufferType.EDITABLE)
 
-        App.MAIN_API.getCards(ModelToken(App.TOKEN)).enqueue(object: Callback<List<ModelCard>> {
-            override fun onResponse(call: Call<List<ModelCard>>,
-                                    response: Response<List<ModelCard>>) {
-                val cardNumbers = mutableListOf<String>()
-                response.body()?.forEach { cardNumbers.add(it.cardNumber) }
-                val adapter = activity?.let { ArrayAdapter(it,
-                    android.R.layout.simple_spinner_dropdown_item, cardNumbers) }
-                view.payment_spinner.adapter = adapter
-                adapter?.getPosition(template.cardNumber)?.let {
-                    view.payment_spinner.setSelection(it)
-                }
-            }
-            override fun onFailure(call: Call<List<ModelCard>>, t: Throwable) {}
-        })
+        val cardNumbers = mutableListOf<String>()
+        App.CARDS.forEach { cardNumbers.add(it.cardNumber) }
+        val adapter = activity?.let { ArrayAdapter(it,
+            android.R.layout.simple_spinner_dropdown_item, cardNumbers) }
+        view.payment_spinner.adapter = adapter
+        adapter?.getPosition(template.cardNumber)?.let {
+            view.payment_spinner.setSelection(it)
+        }
 
         view.payment_btn.setOnClickListener {
             val sum = payment_sum_field.text.toString().toDoubleOrNull()

@@ -14,6 +14,9 @@ import com.hfad.worldskillsbank.activities.HomeActivity
 import com.hfad.worldskillsbank.fragments.HomeFragment
 import com.hfad.worldskillsbank.models.ModelTransactionPost
 import kotlinx.android.synthetic.main.dialog_one_field.*
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,6 +36,7 @@ class AcceptTransactionDialog(val numSource: String,
             .create()
     }
 
+    @ObsoleteCoroutinesApi
     override fun onResume() {
         super.onResume()
         val dialog = dialog as AlertDialog
@@ -58,6 +62,10 @@ class AcceptTransactionDialog(val numSource: String,
                                 dialog1.dismiss()
                             }
                         dialogSuccess.create().show()
+                        runBlocking(newSingleThreadContext("CARDS")) {
+                            App.updateCardList()
+                            App.updateCheckList()
+                        }
                         dialog.dismiss()
                     }
 

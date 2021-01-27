@@ -32,19 +32,13 @@ class PaymentAcceptFragment(private val paymentNum: String = "",
             view.payment_sum_field.setText(paymentSum.toString(), TextView.BufferType.EDITABLE)
         }
 
-        App.MAIN_API.getCards(ModelToken(App.TOKEN)).enqueue(object: Callback<List<ModelCard>> {
-            override fun onResponse(call: Call<List<ModelCard>>,
-                                    response: Response<List<ModelCard>>) {
-                val cardNumbers = mutableListOf<String>()
-                response.body()?.forEach { cardNumbers.add(it.cardNumber) }
-                val adapter = activity?.let { ArrayAdapter(it,
-                    android.R.layout.simple_spinner_dropdown_item, cardNumbers) }
-                view.payment_spinner.adapter = adapter
-                if (cardNumber != "")
-                    adapter?.getPosition(cardNumber)?.let { view.payment_spinner.setSelection(it) }
-            }
-            override fun onFailure(call: Call<List<ModelCard>>, t: Throwable) {}
-        })
+        val cardNumbers = mutableListOf<String>()
+        App.CARDS.forEach { cardNumbers.add(it.cardNumber) }
+        val adapter = activity?.let { ArrayAdapter(it,
+            android.R.layout.simple_spinner_dropdown_item, cardNumbers) }
+        view.payment_spinner.adapter = adapter
+        if (cardNumber != "")
+            adapter?.getPosition(cardNumber)?.let { view.payment_spinner.setSelection(it) }
 
         view.payment_btn.setOnClickListener {
             val sum = view.payment_sum_field.text.toString().toDoubleOrNull()

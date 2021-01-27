@@ -11,15 +11,15 @@ import com.hfad.worldskillsbank.App
 import com.hfad.worldskillsbank.R
 import com.hfad.worldskillsbank.activities.HomeActivity
 import com.hfad.worldskillsbank.adapters.HomeAdapter
-import com.hfad.worldskillsbank.models.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.runBlocking
 
 class HomeFragment : Fragment() {
 
+    @ObsoleteCoroutinesApi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -35,67 +35,47 @@ class HomeFragment : Fragment() {
         val menuItem = (activity as HomeActivity).bottom_nav_view.menu.findItem(R.id.bottom_nav_home)
         if (!menuItem.isChecked) menuItem.isChecked = true
 
-        App.MAIN_API.getUser(ModelToken(App.TOKEN)).enqueue(object : Callback<ModelUser> {
-            override fun onResponse(call: Call<ModelUser>, response: Response<ModelUser>) {
-                for (v in view.recycler_layout) v.visibility = View.VISIBLE
-                response.body()?.let { (activity as HomeActivity).title = it.name + " " + it.midname }
+        if (App.CARDS.isEmpty())
+            runBlocking(newSingleThreadContext("CARDS")) {
+                App.updateCardList()
             }
-            override fun onFailure(call: Call<ModelUser>, t: Throwable) {}
-        })
+        if (App.CHECKS.isEmpty())
+            runBlocking(newSingleThreadContext("CHECKS")) {
+                App.updateCheckList()
+            }
+        if (App.CREDITS.isEmpty())
+            runBlocking(newSingleThreadContext("CREDITS")) {
+                App.updateCreditsList()
+            }
+        if (App.USERNAME == null)
+            runBlocking(newSingleThreadContext("USER")) {
+                App.updateUsername()
+            }
 
-        App.MAIN_API.getCards(ModelToken(App.TOKEN)).enqueue(object : Callback<List<ModelCard>> {
-            override fun onResponse(call: Call<List<ModelCard>>,
-                                    response: Response<List<ModelCard>>) {
-                response.body()?.let {
-                    val adapter = HomeAdapter(it)
-                    adapter.fragmentReplaceListener = object : HomeAdapter.FragmentReplaceListener {
-                        override fun replaceFragment(fragment: Fragment) {
-                            (activity as HomeActivity)
-                                    .supportActionBar?.setDisplayHomeAsUpEnabled(true)
-                            parentFragmentManager.beginTransaction()
-                                    .replace(R.id.fragment_container, fragment)
-                                    .addToBackStack("CARD")
-                                    .commit()
-                        }
-                    }
-                    view.recycler_cards.adapter = adapter
-                }
-            }
-            override fun onFailure(call: Call<List<ModelCard>>, t: Throwable) {}
-        })
-
-        App.MAIN_API.getChecks(ModelToken(App.TOKEN)).enqueue(object : Callback<List<ModelCheck>> {
-            override fun onResponse(call: Call<List<ModelCheck>>,
-                                    response: Response<List<ModelCheck>>) {
-                response.body()?.let {
-                    val adapter = HomeAdapter(it)
-                    adapter.fragmentReplaceListener = object : HomeAdapter.FragmentReplaceListener {
-                        override fun replaceFragment(fragment: Fragment) {
-                            (activity as HomeActivity)
-                                    .supportActionBar?.setDisplayHomeAsUpEnabled(true)
-                            parentFragmentManager.beginTransaction()
-                                    .replace(R.id.fragment_container, fragment)
-                                    .addToBackStack("CHECK")
-                                    .commit()
-                        }
-                    }
-                    view.recycler_checks.adapter = adapter
-                }
-            }
-            override fun onFailure(call: Call<List<ModelCheck>>, t: Throwable) {}
-        })
-
-        App.MAIN_API.getCredits(ModelToken(App.TOKEN )).enqueue(object : Callback<List<ModelCredit>> {
-            override fun onResponse(call: Call<List<ModelCredit>>,
-                                    response: Response<List<ModelCredit>>) {
-                response.body()?.let { view.recycler_credits.adapter = HomeAdapter(it) }
-            }
-            override fun onFailure(call: Call<List<ModelCredit>>, t: Throwable) {}
-        })
+        for (v in view.recycler_layout) v.visibility = View.VISIBLE
+        (activity as HomeActivity).title = App.USERNAME
+        view.recycler_cards.adapter = getHomeAdapter(App.CARDS)
+        view.recycler_checks.adapter = getHomeAdapter(App.CHECKS)
+        view.recycler_credits.adapter = getHomeAdapter(App.CREDITS)
 
         (activity as HomeActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         (activity as HomeActivity).onCreateOptionsMenu((activity as HomeActivity).toolbar.menu)
 
         return view
+    }
+
+    private fun <T> getHomeAdapter(list: List<T>): HomeAdapter<T>{
+        val adapter = HomeAdapter(list)
+        adapter.fragmentReplaceListener = object : HomeAdapter.FragmentReplaceListener {
+            override fun replaceFragment(fragment: Fragment) {
+                (activity as HomeActivity)
+                    .supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack("INFO")
+                    .commit()
+            }
+        }
+        return adapter
     }
 }
