@@ -88,8 +88,9 @@ class BankomatsActivity : AppCompatActivity() {
         })
     }
 
-    lateinit var locationClient: FusedLocationProviderClient
-    val PERMISSION_ID = 45
+    private lateinit var locationClient: FusedLocationProviderClient
+    var lastLocation: Point? = null
+    private val PERMISSION_ID = 45
 
     override fun onStart() {
         super.onStart()
@@ -98,13 +99,20 @@ class BankomatsActivity : AppCompatActivity() {
 
         locationClient = LocationServices.getFusedLocationProviderClient(this)
         getLastLocation()
+
+        user_location_fab.setOnClickListener {
+            if (lastLocation != null) bankomats_map.map.move(CameraPosition(
+                lastLocation ?: Point(0.0, 0.0),
+                16.0f, 0.0f, 0.0f),
+            Animation(Animation.Type.SMOOTH, 0.75f), null)
+        }
     }
 
     @SuppressLint("MissingPermission")
     fun getLastLocation() {
          if (checkPermissions()) {
             if (isGeoEnabled()) {
-                locationClient.lastLocation.addOnCompleteListener {
+                locationClient.lastLocation?.addOnCompleteListener {
                     val location = it.result
                     if (location == null) {
                         val request = LocationRequest()
@@ -115,17 +123,17 @@ class BankomatsActivity : AppCompatActivity() {
 
                         val callback = object : LocationCallback() {
                             override fun onLocationResult(p0: LocationResult?) {
-                                val lastLocation = p0?.lastLocation
-                                bankomats_map.map.mapObjects.addPlacemark(Point(
-                                    lastLocation?.latitude ?: 0.0,
-                                    lastLocation?.longitude ?: 0.0),
+                                lastLocation = Point(p0?.lastLocation?.latitude ?: 0.0,
+                                    p0?.lastLocation?.longitude ?: 0.0)
+                                bankomats_map.map.mapObjects.addPlacemark(
+                                    lastLocation ?: Point(0.0, 0.0),
                                     ImageProvider.fromBitmap(
                                         getBitmap(R.drawable.user_pin, 50)))
                                 bankomats_map.map.move(
-                                    CameraPosition(Point(
-                                        lastLocation?.latitude ?: 0.0,
-                                        lastLocation?.longitude ?: 0.0),
+                                    CameraPosition(
+                                        lastLocation ?: Point(0.0, 0.0),
                                         16.0f, 0.0f, 0.0f))
+                                user_location_fab.setImageResource(R.drawable.baseline_gps_fixed_24)
                             }
                         }
 
@@ -134,12 +142,14 @@ class BankomatsActivity : AppCompatActivity() {
                             Looper.getMainLooper())
                     }
                     else {
-                        bankomats_map.map.mapObjects.addPlacemark(Point(
-                            location.latitude, location.longitude),
+                        lastLocation = Point(location.latitude, location.longitude)
+                        bankomats_map.map.mapObjects.addPlacemark(
+                            lastLocation ?: Point(0.0, 0.0),
                             ImageProvider.fromBitmap(getBitmap(R.drawable.user_pin, 50)))
                         bankomats_map.map.move(
-                            CameraPosition(Point(location.latitude, location.longitude),
+                            CameraPosition(lastLocation ?: Point(0.0, 0.0),
                                 16.0f, 0.0f, 0.0f))
+                        user_location_fab.setImageResource(R.drawable.baseline_gps_fixed_24)
                     }
                 }
             }

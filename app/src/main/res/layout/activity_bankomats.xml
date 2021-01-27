@@ -4,13 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/purple_500"
     android:orientation="vertical"
     tools:context=".activities.BankomatsActivity">
 
-    <com.yandex.mapkit.mapview.MapView
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:id="@+id/bankomats_map"/>
+        android:layout_height="350dp">
+
+        <com.yandex.mapkit.mapview.MapView
+            android:id="@+id/bankomats_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="50dp"
+            android:src="@drawable/baseline_gps_not_fixed_24"
+            app:backgroundTint="@color/white"
+            app:tint="@color/purple_500"
+            android:id="@+id/user_location_fab"/>
+    </FrameLayout>
 
     <TextView
         android:id="@+id/text_bankomats"
