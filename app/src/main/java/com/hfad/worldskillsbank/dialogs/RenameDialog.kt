@@ -12,7 +12,6 @@ import com.hfad.worldskillsbank.models.ModelCheck
 import com.hfad.worldskillsbank.models.ModelRenameCard
 import com.hfad.worldskillsbank.models.ModelRenameCheck
 import kotlinx.android.synthetic.main.dialog_one_field.*
-import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import retrofit2.Call
@@ -33,7 +32,6 @@ class RenameDialog<T>(private val item: T) : DialogFragment() {
         return builder.create()
     }
 
-    @ObsoleteCoroutinesApi
     override fun onResume() {
         super.onResume()
         val dialog = dialog as AlertDialog
@@ -49,7 +47,7 @@ class RenameDialog<T>(private val item: T) : DialogFragment() {
             if (dialog.edit_field.text.isNotBlank()) {
                 if (item is ModelCard) {
                     App.MAIN_API.renameCard(ModelRenameCard(
-                        App.TOKEN,
+                        App.USER?.token ?: "",
                         item.cardNumber,
                         dialog.edit_field.text.toString()))
                         .enqueue(object : Callback<Void> {
@@ -57,7 +55,7 @@ class RenameDialog<T>(private val item: T) : DialogFragment() {
                                 Toast.makeText(activity, getString(R.string.card_rename_success),
                                     Toast.LENGTH_SHORT).show()
                                 runBlocking(newSingleThreadContext("CARDS")) {
-                                    App.updateCardList()
+                                    App.USER?.updateCardList()
                                 }
                                 dialog.dismiss()
                             }
@@ -66,7 +64,7 @@ class RenameDialog<T>(private val item: T) : DialogFragment() {
                 }
                 if (item is ModelCheck) {
                     App.MAIN_API.renameCheck(ModelRenameCheck(
-                        App.TOKEN,
+                        App.USER?.token ?: "",
                         item.checkNumber,
                         dialog.edit_field.text.toString()))
                         .enqueue(object : Callback<Void> {
@@ -74,7 +72,7 @@ class RenameDialog<T>(private val item: T) : DialogFragment() {
                                 Toast.makeText(activity, getString(R.string.check_rename_success),
                                     Toast.LENGTH_SHORT).show()
                                 runBlocking(newSingleThreadContext("CHECKS")) {
-                                    App.updateCheckList()
+                                    App.USER?.updateCheckList()
                                 }
                                 dialog.dismiss()
                             }

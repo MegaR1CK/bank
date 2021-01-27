@@ -12,6 +12,7 @@ import com.hfad.worldskillsbank.R
 import com.hfad.worldskillsbank.activities.HomeActivity
 import com.hfad.worldskillsbank.models.ModelLogin
 import com.hfad.worldskillsbank.models.ModelToken
+import com.hfad.worldskillsbank.other.UserData
 import kotlinx.android.synthetic.main.dialog_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,7 +46,7 @@ class LoginDialog : DialogFragment() {
                         editor.putString("TOKEN", resp)
                         editor.putString("PASSWORD", password)
                         editor.apply()
-                        if (resp != null) { App.TOKEN = resp }
+                        App.USER = resp?.let { it1 -> UserData(it1) }
                         val intent = Intent(activity, HomeActivity::class.java)
                         intent.putExtra(HomeActivity.PASSWORD_TITLE, password)
                         dialog.dismiss()

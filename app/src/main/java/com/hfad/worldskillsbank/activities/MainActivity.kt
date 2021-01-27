@@ -10,6 +10,7 @@ import com.hfad.worldskillsbank.App
 import com.hfad.worldskillsbank.dialogs.LoginDialog
 import com.hfad.worldskillsbank.R
 import com.hfad.worldskillsbank.models.ModelValCurs
+import com.hfad.worldskillsbank.other.UserData
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.button_valute.view.*
 import retrofit2.Call
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         if (preferences.contains("TOKEN")) {
             App.WAS_AUTHORIZED = true
-            App.TOKEN = preferences.getString("TOKEN", null).toString()
+            App.USER = UserData(preferences.getString("TOKEN", null).toString())
             val intent = Intent(this, HomeActivity::class.java)
             intent.putExtra(HomeActivity.PASSWORD_TITLE,
                     preferences.getString("PASSWORD", null))

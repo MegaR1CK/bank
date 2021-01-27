@@ -33,7 +33,7 @@ class EditTemplateFragment(private val template: ModelTemplate) : Fragment() {
         view.payment_sum_field.setText(template.sum.toString(), TextView.BufferType.EDITABLE)
 
         val cardNumbers = mutableListOf<String>()
-        App.CARDS.forEach { cardNumbers.add(it.cardNumber) }
+        App.USER?.cards?.forEach { cardNumbers.add(it.cardNumber) }
         val adapter = activity?.let { ArrayAdapter(it,
             android.R.layout.simple_spinner_dropdown_item, cardNumbers) }
         view.payment_spinner.adapter = adapter
@@ -49,7 +49,7 @@ class EditTemplateFragment(private val template: ModelTemplate) : Fragment() {
                     template.name,
                     view.payment_num_field.text.toString(),
                     view.payment_spinner.selectedItem.toString(),
-                    sum, template.owner, App.TOKEN)
+                    sum, template.owner, App.USER?.token ?: "")
                 ).enqueue(object : Callback<Void> {
 
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {

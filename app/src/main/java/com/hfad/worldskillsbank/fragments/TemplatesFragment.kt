@@ -24,7 +24,7 @@ class TemplatesFragment : Fragment() {
 
         view.recycler_templates.layoutManager = LinearLayoutManager(activity)
 
-        App.MAIN_API.getTemplates(ModelToken(App.TOKEN))
+        App.MAIN_API.getTemplates(ModelToken(App.USER?.token ?: ""))
             .enqueue(object : Callback<List<ModelTemplate>> {
 
                 override fun onResponse(call: Call<List<ModelTemplate>>,

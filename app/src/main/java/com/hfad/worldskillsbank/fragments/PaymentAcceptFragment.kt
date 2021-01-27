@@ -33,7 +33,7 @@ class PaymentAcceptFragment(private val paymentNum: String = "",
         }
 
         val cardNumbers = mutableListOf<String>()
-        App.CARDS.forEach { cardNumbers.add(it.cardNumber) }
+        App.USER?.cards?.forEach { cardNumbers.add(it.cardNumber) }
         val adapter = activity?.let { ArrayAdapter(it,
             android.R.layout.simple_spinner_dropdown_item, cardNumbers) }
         view.payment_spinner.adapter = adapter

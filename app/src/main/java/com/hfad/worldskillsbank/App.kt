@@ -12,6 +12,7 @@ import com.hfad.worldskillsbank.models.ModelCard
 import com.hfad.worldskillsbank.models.ModelCheck
 import com.hfad.worldskillsbank.models.ModelCredit
 import com.hfad.worldskillsbank.models.ModelToken
+import com.hfad.worldskillsbank.other.UserData
 import com.yandex.mapkit.MapKitFactory
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,14 +27,12 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 //TODO: запрос к картам только при запуске и платежах, хранение списка в App
 //TODO: обработка входа с нескольких устройств ?
 //TODO: обработка failure
+//TODO: вынести данные в класс user
 class App : Application() {
     companion object {
         var WAS_AUTHORIZED = false
-        lateinit var TOKEN: String
-        var CARDS = listOf<ModelCard>()
-        var CHECKS = listOf<ModelCheck>()
-        var CREDITS = listOf<ModelCredit>()
-        var USERNAME: String? = null
+
+        var USER: UserData? = null
 
         private val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("http://ws-bank.somee.com/api/")
@@ -64,26 +63,13 @@ class App : Application() {
                     val editor = preferences.edit()
                     editor.clear()
                     editor.apply()
+                    USER = null
                     if (WAS_AUTHORIZED)
                         activity.startActivity(Intent(activity, MainActivity::class.java))
                     activity.finish()
                 }
                 override fun onFailure(call: Call<Void>, t: Throwable) {}
             })
-        }
-
-        fun updateCardList() {
-            CARDS = MAIN_API.getCards(ModelToken(TOKEN)).execute().body() ?: listOf()
-        }
-        fun updateCheckList() {
-            CHECKS = MAIN_API.getChecks(ModelToken(TOKEN)).execute().body() ?: listOf()
-        }
-        fun updateUsername() {
-            val username = MAIN_API.getUser(ModelToken(TOKEN)).execute().body()
-            USERNAME = username?.name + " " + username?.midname
-        }
-        fun updateCreditsList() {
-            CREDITS = MAIN_API.getCredits(ModelToken(TOKEN)).execute().body() ?: listOf()
         }
     }
 

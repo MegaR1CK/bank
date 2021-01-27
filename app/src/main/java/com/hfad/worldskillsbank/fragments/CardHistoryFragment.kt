@@ -28,7 +28,7 @@ class CardHistoryFragment(private val card: ModelCard) : Fragment() {
 
         view.recycler_transaction_history.layoutManager = LinearLayoutManager(activity)
 
-        App.MAIN_API.getCardTransactions(ModelCardPost(App.TOKEN,
+        App.MAIN_API.getCardTransactions(ModelCardPost(App.USER?.token ?: "",
             card.cardNumber)).enqueue(object : Callback<List<ModelTransaction>> {
             override fun onResponse(
                     call: Call<List<ModelTransaction>>,

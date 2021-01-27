@@ -14,7 +14,6 @@ import com.hfad.worldskillsbank.activities.HomeActivity
 import com.hfad.worldskillsbank.fragments.HomeFragment
 import com.hfad.worldskillsbank.models.ModelTransactionPost
 import kotlinx.android.synthetic.main.dialog_one_field.*
-import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import retrofit2.Call
@@ -36,7 +35,6 @@ class AcceptTransactionDialog(val numSource: String,
             .create()
     }
 
-    @ObsoleteCoroutinesApi
     override fun onResume() {
         super.onResume()
         val dialog = dialog as AlertDialog
@@ -52,8 +50,8 @@ class AcceptTransactionDialog(val numSource: String,
         button.setOnClickListener {
             if (dialog.edit_field.text.toString() == (activity as HomeActivity).password) {
                 App.MAIN_API.doTransaction(
-                    ModelTransactionPost(App.TOKEN, numSource, numDest, currentDate, sum))
-                    .enqueue(object : Callback<Void> {
+                    ModelTransactionPost(App.USER?.token ?: "",
+                        numSource, numDest, currentDate, sum)).enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         val dialogSuccess = AlertDialog.Builder(activity)
                             .setMessage(R.string.transaction_success)
@@ -63,8 +61,8 @@ class AcceptTransactionDialog(val numSource: String,
                             }
                         dialogSuccess.create().show()
                         runBlocking(newSingleThreadContext("CARDS")) {
-                            App.updateCardList()
-                            App.updateCheckList()
+                            App.USER?.updateCardList()
+                            App.USER?.updateCheckList()
                         }
                         dialog.dismiss()
                     }

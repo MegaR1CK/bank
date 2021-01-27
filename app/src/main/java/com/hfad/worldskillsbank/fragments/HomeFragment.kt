@@ -11,15 +11,14 @@ import com.hfad.worldskillsbank.App
 import com.hfad.worldskillsbank.R
 import com.hfad.worldskillsbank.activities.HomeActivity
 import com.hfad.worldskillsbank.adapters.HomeAdapter
+import com.hfad.worldskillsbank.models.ModelCard
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 
 class HomeFragment : Fragment() {
 
-    @ObsoleteCoroutinesApi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -35,28 +34,28 @@ class HomeFragment : Fragment() {
         val menuItem = (activity as HomeActivity).bottom_nav_view.menu.findItem(R.id.bottom_nav_home)
         if (!menuItem.isChecked) menuItem.isChecked = true
 
-        if (App.CARDS.isEmpty())
+        if (App.USER?.cards?.isEmpty() == true)
             runBlocking(newSingleThreadContext("CARDS")) {
-                App.updateCardList()
+                App.USER?.updateCardList()
             }
-        if (App.CHECKS.isEmpty())
+        if (App.USER?.checks?.isEmpty() == true)
             runBlocking(newSingleThreadContext("CHECKS")) {
-                App.updateCheckList()
+                App.USER?.updateCheckList()
             }
-        if (App.CREDITS.isEmpty())
+        if (App.USER?.credits?.isEmpty() == true)
             runBlocking(newSingleThreadContext("CREDITS")) {
-                App.updateCreditsList()
+                App.USER?.updateCreditsList()
             }
-        if (App.USERNAME == null)
+        if (App.USER?.username == null)
             runBlocking(newSingleThreadContext("USER")) {
-                App.updateUsername()
+                App.USER?.updateUsername()
             }
 
         for (v in view.recycler_layout) v.visibility = View.VISIBLE
-        (activity as HomeActivity).title = App.USERNAME
-        view.recycler_cards.adapter = getHomeAdapter(App.CARDS)
-        view.recycler_checks.adapter = getHomeAdapter(App.CHECKS)
-        view.recycler_credits.adapter = getHomeAdapter(App.CREDITS)
+        (activity as HomeActivity).title = App.USER?.username
+        view.recycler_cards.adapter = getHomeAdapter(App.USER?.cards ?: listOf())
+        view.recycler_checks.adapter = getHomeAdapter(App.USER?.checks ?: listOf())
+        view.recycler_credits.adapter = getHomeAdapter(App.USER?.credits ?: listOf())
 
         (activity as HomeActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         (activity as HomeActivity).onCreateOptionsMenu((activity as HomeActivity).toolbar.menu)

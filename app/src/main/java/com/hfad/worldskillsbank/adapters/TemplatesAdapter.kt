@@ -33,7 +33,7 @@ class TemplatesAdapter(private val elements: MutableList<ModelTemplate>) :
 
             App.MAIN_API.deleteTemplate(ModelTemplatePost(
                 element.id, element.name, element.destNumber,
-                element.cardNumber, element.sum, element.owner, App.TOKEN
+                element.cardNumber, element.sum, element.owner, App.USER?.token ?: ""
             )).enqueue(object: Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     val pos = holder.adapterPosition

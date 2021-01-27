@@ -20,9 +20,9 @@ class TransferListFragment (val sourceCard: ModelCard) : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_transfer_list, container, false)
 
-        val cardList = App.CARDS.toMutableList()
-        cardList.remove(sourceCard)
-        val adapter = CardListAdapter(cardList.toList())
+        val cardList = App.USER?.cards?.toMutableList()
+        cardList?.remove(sourceCard)
+        val adapter = CardListAdapter(cardList?.toList() ?: mutableListOf())
         adapter.cardListListener = object : CardListAdapter.CardListListener<ModelCard> {
             override fun changeFragment(card: ModelCard) {
                 parentFragmentManager

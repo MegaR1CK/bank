@@ -49,7 +49,7 @@ class ProfileFragment : Fragment() {
                 }
 
                 4 -> {
-                    App.logout(ModelToken(App.TOKEN),
+                    App.logout(ModelToken(App.USER?.token ?: ""),
                             activity as HomeActivity)
                 }
             }

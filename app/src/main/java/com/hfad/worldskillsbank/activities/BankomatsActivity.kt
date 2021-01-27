@@ -28,7 +28,6 @@ import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import com.yandex.runtime.image.ImageProvider
 import kotlinx.android.synthetic.main.activity_bankomats.*
-import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import retrofit2.Call
@@ -40,7 +39,6 @@ class BankomatsActivity : AppCompatActivity() {
     var bankomats: List<ModelBankomat>? = listOf()
     var pointsList: List<Point>? = listOf()
 
-    @ObsoleteCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -202,7 +200,6 @@ class BankomatsActivity : AppCompatActivity() {
             getLastLocation()
     }
 
-    @ObsoleteCoroutinesApi
     fun getBankomatsPointsList(list: List<ModelBankomat>) : List<Point> {
         val pointsList = mutableListOf<Point>()
         runBlocking(newSingleThreadContext("NET")) {

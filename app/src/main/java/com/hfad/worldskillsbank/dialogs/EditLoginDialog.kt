@@ -59,7 +59,7 @@ class EditLoginDialog(val editType: EditType) : DialogFragment() {
                 Toast.makeText(mContext, getString(R.string.short_password), Toast.LENGTH_SHORT).show()
             else {
                 if (editType == EditType.EditUsername) {
-                    App.MAIN_API.editUsername(ModelEditUsername(App.TOKEN,
+                    App.MAIN_API.editUsername(ModelEditUsername(App.USER?.token ?: "",
                             dialog.edit_field.text.toString())).enqueue(object : Callback<Void> {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
                             try {
@@ -75,7 +75,7 @@ class EditLoginDialog(val editType: EditType) : DialogFragment() {
                     })
                 }
                 else {
-                    App.MAIN_API.editPassword(ModelEditPassword(App.TOKEN,
+                    App.MAIN_API.editPassword(ModelEditPassword(App.USER?.token ?: "",
                             dialog.edit_field.text.toString())).enqueue(object : Callback<Void> {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
                             try {

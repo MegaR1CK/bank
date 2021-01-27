@@ -74,7 +74,7 @@ class HomeActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                     .setMessage(R.string.logout_title)
                     .setPositiveButton(R.string.logout) { _: DialogInterface, _: Int ->
-                        App.logout(ModelToken(App.TOKEN), this)
+                        App.logout(ModelToken(App.USER?.token ?: ""), this)
                     }
                     .setNegativeButton(R.string.login_cancel, null)
                     .create().show()

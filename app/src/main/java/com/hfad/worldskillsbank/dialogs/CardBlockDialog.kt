@@ -15,7 +15,6 @@ import com.hfad.worldskillsbank.models.ModelCardPost
 import kotlinx.android.synthetic.main.dialog_one_field.*
 import kotlinx.android.synthetic.main.fragment_card_info.*
 import kotlinx.android.synthetic.main.item_card.*
-import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import retrofit2.Call
@@ -32,7 +31,6 @@ class CardBlockDialog(val card: ModelCard) : DialogFragment() {
                 .create()
     }
 
-    @ObsoleteCoroutinesApi
     override fun onResume() {
         super.onResume()
         val dialog = dialog as AlertDialog
@@ -42,7 +40,7 @@ class CardBlockDialog(val card: ModelCard) : DialogFragment() {
 
         dialog.getButton(Dialog.BUTTON_POSITIVE).setOnClickListener {
             if (dialog.edit_field.text.toString() == (activity as HomeActivity).password) {
-                App.MAIN_API.blockCard(ModelCardPost(App.TOKEN,
+                App.MAIN_API.blockCard(ModelCardPost(App.USER?.token ?: "",
                         card.cardNumber)).enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         (activity as HomeActivity).card_info_block.visibility = View.VISIBLE
@@ -50,7 +48,7 @@ class CardBlockDialog(val card: ModelCard) : DialogFragment() {
                         (activity as HomeActivity).deposit_btn.isEnabled = false
                         (activity as HomeActivity).transfer_btn.isEnabled = false
                         runBlocking(newSingleThreadContext("CARDS")) {
-                            App.updateCardList()
+                            App.USER?.updateCardList()
                         }
                         dialog.dismiss()
                     }

@@ -50,13 +50,13 @@ class DepositListFragment(val destCard: ModelCard) : Fragment() {
 
         view.recycler_deposit_list.layoutManager = LinearLayoutManager(activity)
 
-        cardList = App.CARDS.toMutableList()
+        cardList = App.USER?.cards?.toMutableList()
         cardList?.remove(destCard)
         val adapter = cardList?.toList()?.let { CardListAdapter(it) }
         adapter?.cardListListener = cardDepListener
         view.recycler_deposit_list.adapter = adapter
 
-        checkList = App.CHECKS.toMutableList()
+        checkList = App.USER?.checks?.toMutableList()
 
         view.payment_type_radio.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == R.id.payment_type_card) {
