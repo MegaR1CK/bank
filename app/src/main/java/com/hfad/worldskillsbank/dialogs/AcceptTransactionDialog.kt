@@ -63,6 +63,7 @@ class AcceptTransactionDialog(val numSource: String,
                         runBlocking(newSingleThreadContext("CARDS")) {
                             App.USER?.updateCardList()
                             App.USER?.updateCheckList()
+                            App.USER?.updateTransactions()
                         }
                         dialog.dismiss()
                     }

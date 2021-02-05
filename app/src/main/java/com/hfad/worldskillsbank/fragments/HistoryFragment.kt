@@ -28,25 +28,20 @@ class HistoryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_transaction_history, container,
                 false)
 
-        var transactions: List<ModelTransaction>? = listOf()
+
 
         (activity as HomeActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         (activity as HomeActivity).onCreateOptionsMenu((activity as HomeActivity).toolbar.menu)
 
         view.recycler_transaction_history.layoutManager = LinearLayoutManager(activity)
 
-        App.MAIN_API.getTransactions(ModelToken(App.USER?.token ?: ""))
-                .enqueue(object : Callback<List<ModelTransaction>> {
-                    override fun onResponse(call: Call<List<ModelTransaction>>,
-                                            response: Response<List<ModelTransaction>>) {
-                        val sdf = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
-                        transactions = response.body()?.sortedBy { sdf.parse(it.date) }?.reversed()
-                        view.recycler_transaction_history.adapter = transactions?.let {
-                            GeneralHistoryAdapter(it)
-                        }
-                    }
-                    override fun onFailure(call: Call<List<ModelTransaction>>, t: Throwable) {}
-                })
+
+        var transactions = App.USER?.transactions
+        val sdf = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
+        transactions = transactions?.sortedBy { sdf.parse(it.date) }?.reversed()
+        view.recycler_transaction_history.adapter = transactions?.let {
+            GeneralHistoryAdapter(it)
+        }
 
         ((activity as HomeActivity).toolbar.menu.findItem(R.id.menu_search).actionView as SearchView)
             .setOnQueryTextListener(object : SearchView.OnQueryTextListener {

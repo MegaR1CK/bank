@@ -11,11 +11,8 @@ import com.hfad.worldskillsbank.App
 import com.hfad.worldskillsbank.R
 import com.hfad.worldskillsbank.activities.HomeActivity
 import com.hfad.worldskillsbank.adapters.HomeAdapter
-import com.hfad.worldskillsbank.models.ModelCard
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.runBlocking
 
 class HomeFragment : Fragment() {
 
@@ -28,28 +25,10 @@ class HomeFragment : Fragment() {
         view.recycler_checks.layoutManager = LinearLayoutManager(activity)
         view.recycler_credits.layoutManager = LinearLayoutManager(activity)
 
-        activity?.title = getString(R.string.loading_title)
         for (v in view.recycler_layout) v.visibility = View.GONE
 
         val menuItem = (activity as HomeActivity).bottom_nav_view.menu.findItem(R.id.bottom_nav_home)
         if (!menuItem.isChecked) menuItem.isChecked = true
-
-        if (App.USER?.cards?.isEmpty() == true)
-            runBlocking(newSingleThreadContext("CARDS")) {
-                App.USER?.updateCardList()
-            }
-        if (App.USER?.checks?.isEmpty() == true)
-            runBlocking(newSingleThreadContext("CHECKS")) {
-                App.USER?.updateCheckList()
-            }
-        if (App.USER?.credits?.isEmpty() == true)
-            runBlocking(newSingleThreadContext("CREDITS")) {
-                App.USER?.updateCreditsList()
-            }
-        if (App.USER?.username == null)
-            runBlocking(newSingleThreadContext("USER")) {
-                App.USER?.updateUsername()
-            }
 
         for (v in view.recycler_layout) v.visibility = View.VISIBLE
         (activity as HomeActivity).title = App.USER?.username

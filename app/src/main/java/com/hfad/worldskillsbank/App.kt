@@ -24,10 +24,9 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 //TODO: Уведомления при платежах
 //TODO: загрузка spinner
 //TODO: обработка блокированных карт
-//TODO: запрос к картам только при запуске и платежах, хранение списка в App
 //TODO: обработка входа с нескольких устройств ?
 //TODO: обработка failure
-//TODO: вынести данные в класс user
+
 class App : Application() {
     companion object {
         var WAS_AUTHORIZED = false

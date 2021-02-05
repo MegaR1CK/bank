@@ -1,14 +1,17 @@
 package com.hfad.worldskillsbank.other
 
 import com.hfad.worldskillsbank.App
-import com.hfad.worldskillsbank.models.ModelCard
-import com.hfad.worldskillsbank.models.ModelCheck
-import com.hfad.worldskillsbank.models.ModelCredit
-import com.hfad.worldskillsbank.models.ModelToken
+import com.hfad.worldskillsbank.models.*
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 
 class UserData (val token: String) {
+
+    lateinit var cards: List<ModelCard>
+    lateinit var checks: List<ModelCheck>
+    lateinit var credits: List<ModelCredit>
+    lateinit var transactions: List<ModelTransaction>
+    lateinit var username: String
 
     init {
         runBlocking(newSingleThreadContext("INIT")) {
@@ -16,13 +19,9 @@ class UserData (val token: String) {
             updateCheckList()
             updateCreditsList()
             updateUsername()
+            updateTransactions()
         }
     }
-
-    var cards = listOf<ModelCard>()
-    var checks = listOf<ModelCheck>()
-    var credits = listOf<ModelCredit>()
-    var username: String? = null
 
     fun updateCardList() {
         cards = App.MAIN_API.getCards(ModelToken(token)).execute().body() ?: listOf()
@@ -32,12 +31,16 @@ class UserData (val token: String) {
         checks = App.MAIN_API.getChecks(ModelToken(token)).execute().body() ?: listOf()
     }
 
-    fun updateUsername() {
+    private fun updateUsername() {
         val un = App.MAIN_API.getUser(ModelToken(token)).execute().body()
         username = un?.name + " " + un?.midname
     }
 
-    fun updateCreditsList() {
+    private fun updateCreditsList() {
         credits = App.MAIN_API.getCredits(ModelToken(token)).execute().body() ?: listOf()
+    }
+
+    fun updateTransactions() {
+        transactions = App.MAIN_API.getTransactions(ModelToken(token)).execute().body() ?: listOf()
     }
 }
