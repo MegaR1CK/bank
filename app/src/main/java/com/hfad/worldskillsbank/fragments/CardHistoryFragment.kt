@@ -31,16 +31,21 @@ class CardHistoryFragment(private val card: ModelCard) : Fragment() {
         view.history_pb.visibility = View.VISIBLE
         App.MAIN_API.getCardTransactions(ModelCardPost(App.USER?.token ?: "",
             card.cardNumber)).enqueue(object : Callback<List<ModelTransaction>> {
-            override fun onResponse(
-                    call: Call<List<ModelTransaction>>,
-                    response: Response<List<ModelTransaction>>) {
-                view.history_pb.visibility = View.INVISIBLE
-                view.recycler_transaction_history.adapter = response.body()?.let { it1 ->
-                    TransactionHistoryAdapter(it1.toMutableList()
-                            .sortedBy { it.date }.reversed(), card)
+            override fun onResponse(call: Call<List<ModelTransaction>>,
+                                    response: Response<List<ModelTransaction>>) {
+                if (response.isSuccessful) {
+                    view.history_pb.visibility = View.INVISIBLE
+                    view.recycler_transaction_history.adapter = response.body()?.let { it1 ->
+                        TransactionHistoryAdapter(it1.toMutableList()
+                            .sortedBy { it.date }.reversed(), card
+                        )
+                    }
                 }
+                else activity?.let { App.errorAlert(response.message(), it) }
             }
-            override fun onFailure(call: Call<List<ModelTransaction>>, t: Throwable) {}
+            override fun onFailure(call: Call<List<ModelTransaction>>, t: Throwable) {
+                t.message?.let { activity?.let { it1 -> App.errorAlert(it, it1) } }
+            }
         })
         return view
     }

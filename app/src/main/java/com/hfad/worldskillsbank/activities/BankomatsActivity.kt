@@ -82,7 +82,9 @@ class BankomatsActivity : AppCompatActivity() {
                     recycler_bankomats.adapter = adapter
                 }
             }
-            override fun onFailure(call: Call<List<ModelBankomat>>, t: Throwable) {}
+            override fun onFailure(call: Call<List<ModelBankomat>>, t: Throwable) {
+                t.message?.let { App.errorAlert(it, this@BankomatsActivity) }
+            }
         })
     }
 

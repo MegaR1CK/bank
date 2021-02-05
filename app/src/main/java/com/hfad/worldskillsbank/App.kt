@@ -1,7 +1,9 @@
 package com.hfad.worldskillsbank
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import androidx.preference.PreferenceManager
 import com.hfad.worldskillsbank.activities.MainActivity
@@ -22,10 +24,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 
 //TODO: Уведомления при платежах
-//TODO: загрузка spinner
 //TODO: обработка блокированных карт
-//TODO: обработка входа с нескольких устройств ?
-//TODO: обработка failure
+//TODO: локализация
 
 class App : Application() {
     companion object {
@@ -57,18 +57,32 @@ class App : Application() {
         fun logout(token: ModelToken, activity: Activity) {
             MAIN_API.logout(token).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    val preferences = PreferenceManager
-                        .getDefaultSharedPreferences(activity)
-                    val editor = preferences.edit()
-                    editor.clear()
-                    editor.apply()
-                    USER = null
-                    if (WAS_AUTHORIZED)
-                        activity.startActivity(Intent(activity, MainActivity::class.java))
-                    activity.finish()
+                    if (response.isSuccessful) {
+                        val preferences = PreferenceManager
+                            .getDefaultSharedPreferences(activity)
+                        val editor = preferences.edit()
+                        editor.clear()
+                        editor.apply()
+                        USER = null
+                        if (WAS_AUTHORIZED)
+                            activity.startActivity(Intent(activity, MainActivity::class.java))
+                        activity.finish()
+                    }
+                    else errorAlert(response.message(), activity)
                 }
-                override fun onFailure(call: Call<Void>, t: Throwable) {}
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    t.message?.let { errorAlert(it, activity) }
+                }
             })
+        }
+
+        fun errorAlert(text: String, context: Context) {
+            AlertDialog.Builder(context)
+                .setTitle(R.string.error)
+                .setMessage(text)
+                .setPositiveButton(R.string.ok, null)
+                .create()
+                .show()
         }
     }
 

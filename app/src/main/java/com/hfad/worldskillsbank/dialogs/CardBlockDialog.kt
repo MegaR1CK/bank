@@ -43,16 +43,21 @@ class CardBlockDialog(val card: ModelCard) : DialogFragment() {
                 App.MAIN_API.blockCard(ModelCardPost(App.USER?.token ?: "",
                         card.cardNumber)).enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                        (activity as HomeActivity).card_info_block.visibility = View.VISIBLE
-                        (activity as HomeActivity).card_info_list.visibility = View.INVISIBLE
-                        (activity as HomeActivity).deposit_btn.isEnabled = false
-                        (activity as HomeActivity).transfer_btn.isEnabled = false
-                        runBlocking(newSingleThreadContext("CARDS")) {
-                            App.USER?.updateCardList()
+                        if (response.isSuccessful) {
+                            (activity as HomeActivity).card_info_block.visibility = View.VISIBLE
+                            (activity as HomeActivity).card_info_list.visibility = View.INVISIBLE
+                            (activity as HomeActivity).deposit_btn.isEnabled = false
+                            (activity as HomeActivity).transfer_btn.isEnabled = false
+                            runBlocking(newSingleThreadContext("CARDS")) {
+                                App.USER?.updateCardList()
+                            }
+                            dialog.dismiss()
                         }
-                        dialog.dismiss()
+                        else activity?.let { App.errorAlert(response.message(), it) }
                     }
-                    override fun onFailure(call: Call<Void>, t: Throwable) {}
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        t.message?.let { it1 -> App.errorAlert(it1, activity as HomeActivity) }
+                    }
                 })
             }
             else

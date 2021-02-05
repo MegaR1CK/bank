@@ -30,10 +30,14 @@ class LastLoginFragment : Fragment() {
             .enqueue(object : Callback<List<ModelLastLogin>> {
                 override fun onResponse(call: Call<List<ModelLastLogin>>,
                                         response: Response<List<ModelLastLogin>>) {
-                    view.adapter = response.body()?.let { LastLoginAdapter(it) }
+                    if (response.isSuccessful)
+                        view.adapter = response.body()?.let { LastLoginAdapter(it) }
+                    else activity?.let { App.errorAlert(response.message(), it) }
                 }
 
-                override fun onFailure(call: Call<List<ModelLastLogin>>, t: Throwable) {}
+                override fun onFailure(call: Call<List<ModelLastLogin>>, t: Throwable) {
+                    t.message?.let { activity?.let { it1 -> App.errorAlert(it, it1) } }
+                }
             })
         return view
     }

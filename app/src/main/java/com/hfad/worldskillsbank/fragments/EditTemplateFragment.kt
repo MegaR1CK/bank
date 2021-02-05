@@ -53,12 +53,17 @@ class EditTemplateFragment(private val template: ModelTemplate) : Fragment() {
                 ).enqueue(object : Callback<Void> {
 
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                        parentFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.fragment_container, TemplatesFragment())
-                            .commit()
+                        if (response.isSuccessful) {
+                            parentFragmentManager
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, TemplatesFragment())
+                                .commit()
+                        }
+                        else activity?.let { App.errorAlert(response.message(), it) }
                     }
-                    override fun onFailure(call: Call<Void>, t: Throwable) {}
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        t.message?.let { it1 -> activity?.let { it2 -> App.errorAlert(it1, it2) } }
+                    }
                 })
             else Toast.makeText(activity, getString(R.string.transaction_wrong_sum),
                 Toast.LENGTH_SHORT).show()

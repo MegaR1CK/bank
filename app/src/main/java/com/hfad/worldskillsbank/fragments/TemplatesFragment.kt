@@ -29,32 +29,35 @@ class TemplatesFragment : Fragment() {
 
                 override fun onResponse(call: Call<List<ModelTemplate>>,
                                         response: Response<List<ModelTemplate>>) {
-
-                    val adapter = response.body()?.toMutableList()?.let { TemplatesAdapter(it) }
-
-                    adapter?.templateListener = object : TemplatesAdapter.TemplateListener {
-                        override fun changeFragment(destNumber: String,
-                                                    cardNumber: String,
-                                                    sum: Double) {
-                            parentFragmentManager
-                                .beginTransaction()
-                                .replace(R.id.fragment_container,
-                                    PaymentAcceptFragment(destNumber, cardNumber, sum))
-                                .addToBackStack("TEMPLATE")
-                                .commit()
+                    if (response.isSuccessful) {
+                        val adapter = response.body()?.toMutableList()?.let { TemplatesAdapter(it) }
+                        adapter?.templateListener = object : TemplatesAdapter.TemplateListener {
+                            override fun changeFragment(destNumber: String, cardNumber: String,
+                                                        sum: Double) {
+                                parentFragmentManager
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_container,
+                                        PaymentAcceptFragment(destNumber, cardNumber, sum))
+                                    .addToBackStack("TEMPLATE")
+                                    .commit()
+                            }
+                            override fun editTemplate(template: ModelTemplate) {
+                                parentFragmentManager
+                                    .beginTransaction()
+                                    .replace(
+                                        R.id.fragment_container,
+                                        EditTemplateFragment(template))
+                                    .addToBackStack("TEMPLATE")
+                                    .commit()
+                            }
                         }
-
-                        override fun editTemplate(template: ModelTemplate) {
-                            parentFragmentManager
-                                .beginTransaction()
-                                .replace(R.id.fragment_container, EditTemplateFragment(template))
-                                .addToBackStack("TEMPLATE")
-                                .commit()
-                        }
+                        view.recycler_templates.adapter = adapter
                     }
-                    view.recycler_templates.adapter = adapter
+                    else activity?.let { App.errorAlert(response.message(), it) }
                 }
-                override fun onFailure(call: Call<List<ModelTemplate>>, t: Throwable) {}
+                override fun onFailure(call: Call<List<ModelTemplate>>, t: Throwable) {
+                    t.message?.let { activity?.let { it1 -> App.errorAlert(it, it1) } }
+                }
             })
 
         return view

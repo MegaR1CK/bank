@@ -29,7 +29,9 @@ class ValuteActivity : AppCompatActivity() {
 
         App.XML_API.getValutes().enqueue(object : Callback<ModelValCurs> {
             override fun onResponse(call: Call<ModelValCurs>, response: Response<ModelValCurs>) {
-                recycler_valutes.adapter = response.body()?.valutes?.let { ValuteAdapter(it) }
+                if (response.isSuccessful)
+                    recycler_valutes.adapter = response.body()?.valutes?.let { ValuteAdapter(it) }
+                else App.errorAlert(response.message(), this@ValuteActivity)
             }
 
             override fun onFailure(call: Call<ModelValCurs>, t: Throwable) {

@@ -62,32 +62,41 @@ class EditLoginDialog(val editType: EditType) : DialogFragment() {
                     App.MAIN_API.editUsername(ModelEditUsername(App.USER?.token ?: "",
                             dialog.edit_field.text.toString())).enqueue(object : Callback<Void> {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                            try {
-                                Toast.makeText(mContext, getString(R.string.username_changed),
+                            if (response.isSuccessful) {
+                                try {
+                                    Toast.makeText(mContext, getString(R.string.username_changed),
                                         Toast.LENGTH_SHORT).show()
-                            }
-                            catch (e: IllegalStateException) {
-                                Toast.makeText(activity, getString(R.string.username_changed),
+                                } catch (e: IllegalStateException) {
+                                    Toast.makeText(activity, getString(R.string.username_changed),
                                         Toast.LENGTH_SHORT).show()
+                                }
                             }
+                            else activity?.let { it1 -> App.errorAlert(response.message(), it1) }
                         }
-                        override fun onFailure(call: Call<Void>, t: Throwable) {}
+                        override fun onFailure(call: Call<Void>, t: Throwable) {
+                            activity?.let { it1 -> t.message?.let { it2 -> App.errorAlert(it2, it1) } }
+                        }
                     })
                 }
                 else {
                     App.MAIN_API.editPassword(ModelEditPassword(App.USER?.token ?: "",
                             dialog.edit_field.text.toString())).enqueue(object : Callback<Void> {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                            try {
-                                Toast.makeText(mContext, getString(R.string.password_changed),
+                            if (response.isSuccessful) {
+                                try {
+                                    Toast.makeText(mContext, getString(R.string.password_changed),
                                         Toast.LENGTH_SHORT).show()
-                            }
-                            catch (e: IllegalStateException) {
-                                Toast.makeText(activity, getString(R.string.password_changed),
+                                }
+                                catch (e: IllegalStateException) {
+                                    Toast.makeText(activity, getString(R.string.password_changed),
                                         Toast.LENGTH_SHORT).show()
+                                }
                             }
+                            else activity?.let { App.errorAlert(response.message(), it) }
                         }
-                        override fun onFailure(call: Call<Void>, t: Throwable) {}
+                        override fun onFailure(call: Call<Void>, t: Throwable) {
+                            t.message?.let { it1 -> activity?.let { it2 -> App.errorAlert(it1, it2) } }
+                        }
                     })
                 }
                 dialog.dismiss()

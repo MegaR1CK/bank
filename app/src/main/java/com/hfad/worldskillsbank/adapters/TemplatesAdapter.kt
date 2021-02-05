@@ -33,15 +33,20 @@ class TemplatesAdapter(private val elements: MutableList<ModelTemplate>) :
 
             App.MAIN_API.deleteTemplate(ModelTemplatePost(
                 element.id, element.name, element.destNumber,
-                element.cardNumber, element.sum, element.owner, App.USER?.token ?: ""
-            )).enqueue(object: Callback<Void> {
+                element.cardNumber, element.sum, element.owner, App.USER?.token ?: ""))
+                .enqueue(object: Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    val pos = holder.adapterPosition
-                    elements.removeAt(pos)
-                    notifyItemRemoved(pos)
-                    notifyItemRangeChanged(pos, elements.size)
+                    if (response.isSuccessful) {
+                        val pos = holder.adapterPosition
+                        elements.removeAt(pos)
+                        notifyItemRemoved(pos)
+                        notifyItemRangeChanged(pos, elements.size)
+                    }
+                    else App.errorAlert(response.message(), view.context)
                 }
-                override fun onFailure(call: Call<Void>, t: Throwable) {}
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    t.message?.let { it1 -> App.errorAlert(it1, view.context) }
+                }
             })
         }
 

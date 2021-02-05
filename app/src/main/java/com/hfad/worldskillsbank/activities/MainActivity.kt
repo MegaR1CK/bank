@@ -48,12 +48,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         App.XML_API.getValutes().enqueue(object : Callback<ModelValCurs> {
             override fun onResponse(call: Call<ModelValCurs>, response: Response<ModelValCurs>) {
-                val dollar = response.body()?.valutes?.find { it.CharCode == "USD" }
-                val euro = response.body()?.valutes?.find { it.CharCode == "EUR" }
-                valute_btn.val1_code.text = dollar?.CharCode
-                valute_btn.val1_value.text = dollar?.Value
-                valute_btn.val2_code.text = euro?.CharCode
-                valute_btn.val2_value.text = euro?.Value
+                if (response.isSuccessful) {
+                    val dollar = response.body()?.valutes?.find { it.CharCode == "USD" }
+                    val euro = response.body()?.valutes?.find { it.CharCode == "EUR" }
+                    valute_btn.val1_code.text = dollar?.CharCode
+                    valute_btn.val1_value.text = dollar?.Value
+                    valute_btn.val2_code.text = euro?.CharCode
+                    valute_btn.val2_value.text = euro?.Value
+                }
+                else App.errorAlert(response.message(), this@MainActivity)
             }
             override fun onFailure(call: Call<ModelValCurs>, t: Throwable) {
                 t.message?.let { Log.d("APP", it) }
@@ -81,8 +84,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             override fun onResponse(call: Call<ModelToken>,
                                                     response: Response<ModelToken>) {
                                 if (!response.isSuccessful)
-                                    Toast.makeText(this@MainActivity, response.message(),
-                                        Toast.LENGTH_SHORT).show()
+                                    App.errorAlert(response.message(), this@MainActivity)
                                 else {
                                     val token = response.body()?.token
                                     val preferences = PreferenceManager

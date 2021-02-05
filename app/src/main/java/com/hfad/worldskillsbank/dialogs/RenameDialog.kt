@@ -52,14 +52,19 @@ class RenameDialog<T>(private val item: T) : DialogFragment() {
                         dialog.edit_field.text.toString()))
                         .enqueue(object : Callback<Void> {
                             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                                Toast.makeText(activity, getString(R.string.card_rename_success),
-                                    Toast.LENGTH_SHORT).show()
-                                runBlocking(newSingleThreadContext("CARDS")) {
-                                    App.USER?.updateCardList()
+                                if (response.isSuccessful) {
+                                    Toast.makeText(activity, getString(R.string.card_rename_success),
+                                        Toast.LENGTH_SHORT).show()
+                                    runBlocking(newSingleThreadContext("CARDS")) {
+                                        App.USER?.updateCardList()
+                                    }
+                                    dialog.dismiss()
                                 }
-                                dialog.dismiss()
+                                else activity?.let { App.errorAlert(response.message(), it) }
                             }
-                            override fun onFailure(call: Call<Void>, t: Throwable) {}
+                            override fun onFailure(call: Call<Void>, t: Throwable) {
+                                t.message?.let { it1 -> activity?.let { it2 -> App.errorAlert(it1, it2) } }
+                            }
                         })
                 }
                 if (item is ModelCheck) {
@@ -69,14 +74,19 @@ class RenameDialog<T>(private val item: T) : DialogFragment() {
                         dialog.edit_field.text.toString()))
                         .enqueue(object : Callback<Void> {
                             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                                Toast.makeText(activity, getString(R.string.check_rename_success),
-                                    Toast.LENGTH_SHORT).show()
-                                runBlocking(newSingleThreadContext("CHECKS")) {
-                                    App.USER?.updateCheckList()
+                                if (response.isSuccessful) {
+                                    Toast.makeText(activity, getString(R.string.check_rename_success),
+                                        Toast.LENGTH_SHORT).show()
+                                    runBlocking(newSingleThreadContext("CHECKS")) {
+                                        App.USER?.updateCheckList()
+                                    }
+                                    dialog.dismiss()
                                 }
-                                dialog.dismiss()
+                                else activity?.let { App.errorAlert(response.message(), it) }
                             }
-                            override fun onFailure(call: Call<Void>, t: Throwable) {}
+                            override fun onFailure(call: Call<Void>, t: Throwable) {
+                                t.message?.let { it1 -> activity?.let { it2 -> App.errorAlert(it1, it2) } }
+                            }
                         })
                 }
 

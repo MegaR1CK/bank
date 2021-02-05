@@ -53,25 +53,29 @@ class AcceptTransactionDialog(val numSource: String,
                     ModelTransactionPost(App.USER?.token ?: "",
                         numSource, numDest, currentDate, sum)).enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                        val dialogSuccess = AlertDialog.Builder(activity)
-                            .setMessage(R.string.transaction_success)
-                            .setPositiveButton(R.string.ok) { dialog1: DialogInterface, _: Int ->
-                                transactionSuccessListener.changeFragment(HomeFragment())
-                                dialog1.dismiss()
+                        if (response.isSuccessful) {
+                            val dialogSuccess = AlertDialog.Builder(activity)
+                                .setMessage(R.string.transaction_success)
+                                .setPositiveButton(R.string.ok) { dialog1: DialogInterface, _: Int ->
+                                    transactionSuccessListener.changeFragment(HomeFragment())
+                                    dialog1.dismiss()
+                                }
+                            dialogSuccess.create().show()
+                            runBlocking(newSingleThreadContext("CARDS")) {
+                                App.USER?.updateCardList()
+                                App.USER?.updateCheckList()
+                                App.USER?.updateTransactions()
                             }
-                        dialogSuccess.create().show()
-                        runBlocking(newSingleThreadContext("CARDS")) {
-                            App.USER?.updateCardList()
-                            App.USER?.updateCheckList()
-                            App.USER?.updateTransactions()
+                            dialog.dismiss()
                         }
-                        dialog.dismiss()
+                        else activity?.let { App.errorAlert(response.message(), it) }
                     }
-
-                    override fun onFailure(call: Call<Void>, t: Throwable) {}
-
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        t.message?.let { it1 -> App.errorAlert(it1, activity as HomeActivity) }
+                    }
                 })
-            } else Toast.makeText(activity, R.string.wrong_password, Toast.LENGTH_SHORT).show()
+            }
+            else Toast.makeText(activity, R.string.wrong_password, Toast.LENGTH_SHORT).show()
         }
     }
 
