@@ -35,29 +35,14 @@ class LoginDialog : DialogFragment() {
         button.setOnClickListener {
             val username = dialog.field_username.text.toString()
             val password = dialog.field_password.text.toString()
-            App.MAIN_API.login(ModelLogin(username, password)).enqueue(object : Callback<ModelToken> {
-                override fun onResponse(call: Call<ModelToken>, response: Response<ModelToken>) {
-                    if (!response.isSuccessful)
-                        Toast.makeText(activity, response.message(), Toast.LENGTH_SHORT).show()
-                    else {
-                        val resp = response.body()?.token
-                        val preferences = PreferenceManager.getDefaultSharedPreferences(activity)
-                        val editor = preferences.edit()
-                        editor.putString("TOKEN", resp)
-                        editor.putString("PASSWORD", password)
-                        editor.apply()
-                        App.USER = resp?.let { it1 -> UserData(it1) }
-                        val intent = Intent(activity, HomeActivity::class.java)
-                        intent.putExtra(HomeActivity.PASSWORD_TITLE, password)
-                        dialog.dismiss()
-                        startActivity(intent)
-                    }
-                }
-
-                override fun onFailure(call: Call<ModelToken>, t: Throwable) {
-                    t.message?.let { it1 -> Toast.makeText(activity, it1, Toast.LENGTH_SHORT).show() }
-                }
-            })
+            dialog.dismiss()
+            loginListener.loginFromActivity(ModelLogin(username, password))
         }
+    }
+
+    lateinit var loginListener: LoginListener
+
+    interface LoginListener {
+        fun loginFromActivity(model: ModelLogin)
     }
 }

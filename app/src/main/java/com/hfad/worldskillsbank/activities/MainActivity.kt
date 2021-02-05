@@ -1,14 +1,17 @@
 package com.hfad.worldskillsbank.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import com.hfad.worldskillsbank.App
-import com.hfad.worldskillsbank.dialogs.LoginDialog
 import com.hfad.worldskillsbank.R
+import com.hfad.worldskillsbank.dialogs.LoginDialog
+import com.hfad.worldskillsbank.models.ModelLogin
+import com.hfad.worldskillsbank.models.ModelToken
 import com.hfad.worldskillsbank.models.ModelValCurs
 import com.hfad.worldskillsbank.other.UserData
 import kotlinx.android.synthetic.main.activity_main.*
@@ -70,6 +73,40 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.login_btn -> {
                 val dialog = LoginDialog()
+                dialog.loginListener = object : LoginDialog.LoginListener {
+                    override fun loginFromActivity(model: ModelLogin) {
+                        login_pb.visibility = View.VISIBLE
+                        darken_layout.visibility = View.VISIBLE
+                        App.MAIN_API.login(model).enqueue(object : Callback<ModelToken> {
+                            override fun onResponse(call: Call<ModelToken>,
+                                                    response: Response<ModelToken>) {
+                                if (!response.isSuccessful)
+                                    Toast.makeText(this@MainActivity, response.message(),
+                                        Toast.LENGTH_SHORT).show()
+                                else {
+                                    val token = response.body()?.token
+                                    val preferences = PreferenceManager
+                                        .getDefaultSharedPreferences(this@MainActivity)
+                                    val editor = preferences.edit()
+                                    editor.putString("TOKEN", token)
+                                    editor.putString("PASSWORD", model.password)
+                                    editor.apply()
+                                    App.USER = token?.let { it1 -> UserData(it1) }
+                                    login_pb.visibility = View.INVISIBLE
+                                    darken_layout.visibility = View.INVISIBLE
+                                    val intent = Intent(this@MainActivity,
+                                        HomeActivity::class.java)
+                                    intent.putExtra(HomeActivity.PASSWORD_TITLE, model.password)
+                                    startActivity(intent)
+                                }
+                            }
+                            override fun onFailure(call: Call<ModelToken>, t: Throwable) {
+                                t.message?.let { it1 -> Toast.makeText(this@MainActivity,
+                                    it1, Toast.LENGTH_SHORT).show() }
+                            }
+                        })
+                    }
+                }
                 val ft = supportFragmentManager.beginTransaction()
                 dialog.show(ft, "login")
             }
