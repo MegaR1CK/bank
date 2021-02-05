@@ -28,11 +28,13 @@ class CardHistoryFragment(private val card: ModelCard) : Fragment() {
 
         view.recycler_transaction_history.layoutManager = LinearLayoutManager(activity)
 
+        view.history_pb.visibility = View.VISIBLE
         App.MAIN_API.getCardTransactions(ModelCardPost(App.USER?.token ?: "",
             card.cardNumber)).enqueue(object : Callback<List<ModelTransaction>> {
             override fun onResponse(
                     call: Call<List<ModelTransaction>>,
                     response: Response<List<ModelTransaction>>) {
+                view.history_pb.visibility = View.INVISIBLE
                 view.recycler_transaction_history.adapter = response.body()?.let { it1 ->
                     TransactionHistoryAdapter(it1.toMutableList()
                             .sortedBy { it.date }.reversed(), card)

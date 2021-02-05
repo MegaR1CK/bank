@@ -27,11 +27,13 @@ class CheckHistoryFragment(private val check: ModelCheck) : Fragment() {
 
         view.recycler_transaction_history.layoutManager = LinearLayoutManager(activity)
 
+        view.history_pb.visibility = View.VISIBLE
         App.MAIN_API.getCheckTransactions(ModelCheckPost(App.USER?.token ?: "",
             check.checkNumber)).enqueue(object : Callback<List<ModelTransaction>> {
             override fun onResponse(
                     call: Call<List<ModelTransaction>>,
                     response: Response<List<ModelTransaction>>) {
+                view.history_pb.visibility = View.INVISIBLE
                 view.recycler_transaction_history.adapter = response.body()?.let { it1 ->
                     TransactionHistoryAdapter(it1.toMutableList()
                             .sortedBy { it.date }.reversed(), check)
