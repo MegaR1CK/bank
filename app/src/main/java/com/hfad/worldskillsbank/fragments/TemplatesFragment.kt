@@ -24,12 +24,14 @@ class TemplatesFragment : Fragment() {
 
         view.recycler_templates.layoutManager = LinearLayoutManager(activity)
 
+        view.templates_pb.visibility = View.VISIBLE
         App.MAIN_API.getTemplates(ModelToken(App.USER?.token ?: ""))
             .enqueue(object : Callback<List<ModelTemplate>> {
 
                 override fun onResponse(call: Call<List<ModelTemplate>>,
                                         response: Response<List<ModelTemplate>>) {
                     if (response.isSuccessful) {
+                        view.templates_pb.visibility = View.INVISIBLE
                         val adapter = response.body()?.toMutableList()?.let { TemplatesAdapter(it) }
                         adapter?.templateListener = object : TemplatesAdapter.TemplateListener {
                             override fun changeFragment(destNumber: String, cardNumber: String,

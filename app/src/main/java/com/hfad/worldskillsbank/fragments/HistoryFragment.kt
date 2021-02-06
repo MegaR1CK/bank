@@ -55,8 +55,8 @@ class HistoryFragment : Fragment() {
                                         it.destNumber.length).contains(newText ?: "") ||
                                     it.sourceNumber.substring(it.sourceNumber.length - 4,
                                         it.sourceNumber.length).contains(newText ?: "") ||
-                                    it.sum.toString().contains(newText ?: "")
-                        }?.let { GeneralHistoryAdapter(it) }
+                                    it.sum.toString().contains(newText ?: "") }
+                            ?.let { GeneralHistoryAdapter(it) }
                     return false
                 }
             })

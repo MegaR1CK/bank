@@ -43,6 +43,7 @@ class CheckHistoryFragment(private val check: ModelCheck) : Fragment() {
             }
             override fun onFailure(call: Call<List<ModelTransaction>>, t: Throwable) {
                 t.message?.let { activity?.let { it1 -> App.errorAlert(it, it1) } }
+                view.history_pb.visibility = View.INVISIBLE
             }
         })
         return view

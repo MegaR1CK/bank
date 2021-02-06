@@ -105,6 +105,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             override fun onFailure(call: Call<ModelToken>, t: Throwable) {
                                 t.message?.let { it1 -> Toast.makeText(this@MainActivity,
                                     it1, Toast.LENGTH_SHORT).show() }
+                                login_pb.visibility = View.INVISIBLE
+                                darken_layout.visibility = View.INVISIBLE
                             }
                         })
                     }

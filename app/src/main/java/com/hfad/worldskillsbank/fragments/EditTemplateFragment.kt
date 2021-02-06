@@ -33,7 +33,7 @@ class EditTemplateFragment(private val template: ModelTemplate) : Fragment() {
         view.payment_sum_field.setText(template.sum.toString(), TextView.BufferType.EDITABLE)
 
         val cardNumbers = mutableListOf<String>()
-        App.USER?.cards?.forEach { cardNumbers.add(it.cardNumber) }
+        App.USER?.cards?.forEach { if (!it.isBlocked) cardNumbers.add(it.cardNumber) }
         val adapter = activity?.let { ArrayAdapter(it,
             android.R.layout.simple_spinner_dropdown_item, cardNumbers) }
         view.payment_spinner.adapter = adapter
