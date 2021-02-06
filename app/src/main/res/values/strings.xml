@@ -1,123 +1,123 @@
 <resources>
-    <string name="app_name">WorldSkills Bank</string>
-    <string name="bankomat_time">Часы работы: %1$s-%2$s</string>
-    <string name="bankomats_title">Отделения и банкоматы</string>
-    <string name="valutes_title">Курсы валют</string>
-    <string name="val_title">Курс</string>
-    <string name="not_found">Не найдено</string>
-    <string name="login_title">Войти</string>
-    <string name="auth_title">Авторизация</string>
-    <string name="login_desc">Введите логин и пароль:</string>
-    <string name="uname">Имя пользователя</string>
-    <string name="password">Пароль</string>
-    <string name="login_log">Войти</string>
-    <string name="login_cancel">Отмена</string>
-    <string name="bottom_nav_home">Главная</string>
-    <string name="bottom_nav_payments">Платежи</string>
-    <string name="bottom_nav_history">История</string>
-    <string name="bottom_nav_dialogs">Диалоги</string>
-    <string name="cards_title">МОИ КАРТЫ</string>
-    <string name="checks_title">МОИ СЧЕТА</string>
-    <string name="credits_title">МОИ КРЕДИТЫ</string>
-    <string name="home_sum">%1$.2f руб.</string>
-    <string name="home_sum_to">+%1$.2f руб.</string>
-    <string name="home_sum_from">-%1$.2f руб.</string>
+    <string name="app_name" translatable="false">WorldSkills Bank</string>
+    <string name="bankomat_time">Opening hours: %1$s-%2$s</string>
+    <string name="bankomats_title">Offices and ATM\'s</string>
+    <string name="valutes_title">Exchange rates</string>
+    <string name="val_title">Rate</string>
+    <string name="not_found">Not found</string>
+    <string name="login_title">Login</string>
+    <string name="auth_title">Authorization</string>
+    <string name="login_desc">Enter username and password:</string>
+    <string name="uname">Username</string>
+    <string name="password">Password</string>
+    <string name="login_log">Login</string>
+    <string name="login_cancel">Cancel</string>
+    <string name="bottom_nav_home">Home</string>
+    <string name="bottom_nav_payments">Payments</string>
+    <string name="bottom_nav_history">History</string>
+    <string name="bottom_nav_dialogs">Dialogs</string>
+    <string name="cards_title">MY CARDS</string>
+    <string name="checks_title">MY CHECKS</string>
+    <string name="credits_title">MY CREDITS</string>
+    <string name="home_sum">%1$.2f RUB</string>
+    <string name="home_sum_to">+%1$.2f RUB</string>
+    <string name="home_sum_from">-%1$.2f RUB</string>
     <string name="home_sum_none"> </string>
     <string-array name="options_list">
-        <item>Изменение пароля</item>
-        <item>Изменение логина</item>
-        <item>История посещений</item>
-        <item>Информация о приложении</item>
-        <item>Выход</item>
+        <item>Change password</item>
+        <item>Change login</item>
+        <item>Login history</item>
+        <item>About</item>
+        <item>Logout</item>
     </string-array>
-    <string name="username_edit_title">Изменение логина</string>
-    <string name="username_edit_desc">Введите новый логин:</string>
-    <string name="password_edit_title">Изменение пароля</string>
-    <string name="password_edit_desc">Введите новый пароль:</string>
-    <string name="edit_button">Изменить</string>
-    <string name="username_changed">Имя пользователя изменено</string>
-    <string name="password_changed">Пароль изменен</string>
-    <string name="short_password">Пароль слишком короткий!</string>
-    <string name="information_title">Мобильное приложение WorldSkills Online</string>
-    <string name="information_version">Версия 1.0.0</string>
+    <string name="username_edit_title">Change username</string>
+    <string name="username_edit_desc">Enter new username:</string>
+    <string name="password_edit_title">Change password</string>
+    <string name="password_edit_desc">Enter new password:</string>
+    <string name="edit_button">Change</string>
+    <string name="username_changed">Username changed</string>
+    <string name="password_changed">Password changed</string>
+    <string name="short_password">Password too short!</string>
+    <string name="information_title">WorldSkills Online mobile application</string>
+    <string name="information_version">Version 1.0.0</string>
     <string name="information_link">
-        <a href="https://www.avangard.ru/rus/docs/rules_cart_use_in_system_mobile_pays.pdf">Пользовательское соглашение</a>
+        <a href="https://www.avangard.ru/rus/docs/rules_cart_use_in_system_mobile_pays.pdf">
+            Terms of use
+        </a>
     </string>
-    <string name="information_dev">Разработано: Гончаров Константин Дмитриевич</string>
-    <string name="card_info_deposit">Пополнить</string>
-    <string name="card_info_transfer">Перевести</string>
+    <string name="information_dev">Developer: Goncharov Konstantin Dmitrievich</string>
+    <string name="card_info_deposit">Deposit</string>
+    <string name="card_info_transfer">Transfer</string>
     <string-array name="card_info_options">
-        <item>История операций</item>
-        <item>Заблокировать</item>
-        <item>Переименовать</item>
+        <item>Transaction history</item>
+        <item>Block</item>
+        <item>Rename</item>
     </string-array>
-    <string name="card_block_title">Карта заблокирована!</string>
-    <string name="card_block_dialog_title">Блокировка карты</string>
-    <string name="card_block_dialog_desc">Подтвердите блокировку карты:</string>
-    <string name="card_block_pos_btn">Заблокировать</string>
-    <string name="wrong_password">Неверный пароль!</string>
-    <string name="history_card_title_to">Перевод на карту</string>
-    <string name="history_card_title_from">Перевод с карты</string>
-    <string name="history_check_title_to">Перевод на счет</string>
-    <string name="history_check_title_from">Перевод со счета</string>
-    <string name="general_history_title">Перевод с %1$s на %2$s</string>
-    <string name="loading_title">Загрузка…</string>
-    <string name="card_rename_title">Переименование карты</string>
-    <string name="check_rename_title">Переименование счета</string>
-    <string name="rename_desc">Введите новое имя</string>
-    <string name="card_rename_hint">Имя карты</string>
-    <string name="check_rename_hint">Имя счета</string>
-    <string name="rename_pos_btn">Изменить</string>
-    <string name="card_rename_success">Карта переименована</string>
-    <string name="check_rename_success">Счет переименован</string>
-    <string name="card_rename_short_name">Имя не может быть пустым!</string>
+    <string name="card_block_title">Card blocked!</string>
+    <string name="card_block_dialog_title">Block card</string>
+    <string name="card_block_dialog_desc">Confirm card block:</string>
+    <string name="card_block_pos_btn">Block</string>
+    <string name="wrong_password">Wrong password!</string>
+    <string name="history_card_title_to">Transfer to card</string>
+    <string name="history_card_title_from">Transfer from card</string>
+    <string name="history_check_title_to">Transfer to check</string>
+    <string name="history_check_title_from">Transfer from check</string>
+    <string name="general_history_title">Transfer from %1$s to %2$s</string>
+    <string name="loading_title">Loading…</string>
+    <string name="card_rename_title">Rename card</string>
+    <string name="check_rename_title">Rename check</string>
+    <string name="rename_desc">Enter new name:</string>
+    <string name="card_rename_hint">Card name</string>
+    <string name="check_rename_hint">Check name</string>
+    <string name="rename_pos_btn">Change</string>
+    <string name="card_rename_success">Card renamed</string>
+    <string name="check_rename_success">Check renamed</string>
+    <string name="card_rename_short_name">Name cannot be empty!</string>
     <string-array name="check_info_options">
-        <item>История операций</item>
-        <item>Переименовать</item>
+        <item>Transaction history</item>
+        <item>Rename</item>
     </string-array>
-    <string name="dep_switch_card">С карты</string>
-    <string name="dep_switch_check">Со счета</string>
-    <string name="dep_sum_hint">Введите сумму</string>
-    <string name="dep_btn_title">Перевести</string>
-    <string name="card_source_title">Карта отправителя</string>
-    <string name="card_dest_title">Карта получателя</string>
-    <string name="check_source_title">Счет отправителя</string>
-    <string name="transaction_accept_title">Подтверждение перевода</string>
-    <string name="transaction_accept_desc">Подтвердите перевод вводом пароля:</string>
-    <string name="transaction_accept_btn">Перевести</string>
-    <string name="transaction_wrong_sum">Неверно введена сумма!</string>
-    <string name="transaction_success">Перевод завершен!</string>
+    <string name="dep_switch_card">From card</string>
+    <string name="dep_switch_check">From check</string>
+    <string name="dep_sum_hint">Enter amount</string>
+    <string name="dep_btn_title">Transfer</string>
+    <string name="card_source_title">Sender card</string>
+    <string name="card_dest_title">Receiver card</string>
+    <string name="check_source_title">Sender check</string>
+    <string name="transaction_accept_title">Transfer confirmation</string>
+    <string name="transaction_accept_desc">Confirm a transfer by entering a password:</string>
+    <string name="transaction_accept_btn">Transfer</string>
+    <string name="transaction_wrong_sum">Incorrect amount!</string>
+    <string name="transaction_success">Transfer complete!</string>
     <string name="ok">OK</string>
-    <string name="logout">Выйти</string>
-    <string name="logout_title">Выйти из учетной записи?</string>
-    <string name="transfer_list_title">Выберите карту получателя</string>
-    <string name="custom_card_title">Карта любого банка</string>
-    <string name="custom_card_number_hint">Введите номер карты</string>
-    <string name="next">Далее</string>
-    <string name="not_enough_money">Недостаточно денег!</string>
-    <string name="card_num_incorrect">Некорректный номер карты!</string>
+    <string name="logout">Logout</string>
+    <string name="logout_title">Logout from account?</string>
+    <string name="transfer_list_title">Choose sender card</string>
+    <string name="custom_card_title">Any card</string>
+    <string name="custom_card_number_hint">Enter card number</string>
+    <string name="next">Next</string>
+    <string name="not_enough_money">Not enough money!</string>
+    <string name="card_num_incorrect">Incorrect card number!</string>
     <string-array name="payments_list">
-        <item>Сотовая связь</item>
-        <item>Квартплата</item>
-        <item>Интернет</item>
-        <item>Штрафы</item>
-        <item>Страхование</item>
+        <item>Phone</item>
+        <item>Rent</item>
+        <item>Internet</item>
+        <item>Taxes</item>
+        <item>Insurance</item>
     </string-array>
-    <string name="payment_accept_number">Введите номер договора</string>
-    <string name="payment_accept_card">Выберите карту</string>
-    <string name="payment_accept_sum">Введите сумму</string>
-    <string name="payment_accept_number_hint">Номер договора</string>
-    <string name="payment_accept_sum_hint">Сумма</string>
-    <string name="payment_accept_btn">Оплатить</string>
-    <string name="payment_templates"><u>Смотреть все шаблоны</u></string>
-    <string name="template_delete">Удалить</string>
-    <string name="template_edit">Изменить</string>
-    <string name="template_phone">Шаблон сотовой связи</string>
-    <string name="template_internet">Шаблон интернета</string>
-    <string name="template_apart">Шаблон квартплаты</string>
-    <string name="gps_disabled_title">Сервисы отключены</string>
-    <string name="gps_disabled_desc">Приложение не может получить доступ к вашему местоположению.
-        Пожалуйста, включите сеть и GPS, а также предоставьте приложению необходимые разрешения.
-    </string>
-    <string name="error">Ошибка!</string>
+    <string name="payment_accept_number">Enter check number</string>
+    <string name="payment_accept_card">Choose card</string>
+    <string name="payment_accept_sum">Enter amount</string>
+    <string name="payment_accept_number_hint">Check number</string>
+    <string name="payment_accept_sum_hint">Amount</string>
+    <string name="payment_accept_btn">Pay</string>
+    <string name="payment_templates"><u>All templates</u></string>
+    <string name="template_delete">Delete</string>
+    <string name="template_edit">Edit</string>
+    <string name="template_phone">Phone template</string>
+    <string name="template_internet">Internet template</string>
+    <string name="template_apart">Rent template</string>
+    <string name="gps_disabled_title">GPS disabled</string>
+    <string name="error">Error!</string>
+    <string name="gps_disabled_desc">Application cannot get access to your location. Turn the network and GPS on and provide necessary premissions.</string>
 </resources>
